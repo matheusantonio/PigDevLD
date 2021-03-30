@@ -23,10 +23,14 @@ PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
 //#define QTDPISOS 10
 
 // Quantidade de inimigos no cenário
-#define NUM_INIMIGOS 1
+int NUM_INIMIGOS;
 
 // Quantidade máxima de caracteres de uma mensagem que pode ser exibida
 #define MAX_TEXT_SIZE 100
+
+
+int CENA_INICIAL; // começa 1, seta 0 depois que passarem as primeiras mensagens
+
 
 // Estrutura para armazenar os dados do policial
 typedef struct{
@@ -41,17 +45,25 @@ typedef struct{
 // Estrutura para armazenar os dados de um inimigo
 typedef struct {
     int anima; // Animação do inimigo
-    int posX; // Posição do inimigo no mapa
-    int posY;
+    int x; // Posição do inimigo no mapa
+    int y;
     int timerAtacado; // Timer para definir o intervalo de tempo em que o inimigo pode ser ataco novamente
 
     int gravidade_crime; // Gravidade do crime do inimigo (negativo para inimigos que não cometem crimes)
+
     char** mensagem_interacao; // Mensagens exibidas quando o policial interage com o inimigo
     char** mensagem_atacado; // Mensagens exibidas quando o policial ataca o inimigo
+
     int n_mensagem_interacao; // Quantidade de mensagens de interação
     int n_mensagem_atacado; // Quantidade de mensagens de ataque
 
+    int presente;
+    int nocauteado; // faz o azul aparecer quando essa variavel do vermelho for 1
+    int hp;
+
 } Inimigo;
+
+
 
 // Lista encadeada de mensagens a serem exibidas na tela
 typedef struct mensagem {
@@ -123,6 +135,13 @@ Cenario inicializarCenario(){
     return cenario;
 }
 
+
+typedef struct {
+    Inimigo *inimigos;
+    int n_inimigos;
+    Cenario cenario;
+} Fase;
+
 // Declaração da função que testa a colisão com os inimigos
 int testaColisaoInimigos(Policial pol, Inimigo inimigos[]);
 
@@ -138,8 +157,8 @@ Inimigo inicializarInimigo() {
     InsereFrameAnimacao(inimigo.anima, 1, 2, 0.1);
 
     DeslocaAnimacao(inimigo.anima, 300, 200);
-    inimigo.posX = 300;
-    inimigo.posY = 200;
+    inimigo.x = 300;
+    inimigo.y = 200;
     inimigo.timerAtacado = CriaTimer();
 
     //Iniciando a gravidade do crime
@@ -171,6 +190,8 @@ Inimigo inicializarInimigo() {
 
     return inimigo;
 }
+
+
 
 // Muda o estado atual do policial
 void MudaAcao(Policial &pol,int acao){
@@ -284,8 +305,13 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
     if(inimigoAtingido != -1){
         modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
         printf("\n%d",pol.reputacao);
+        inimigos[inimigoAtingido].hp --;
+        if(inimigos[inimigoAtingido].hp == 0){
+            inimigos[inimigoAtingido].nocauteado = 1;
+            inimigos[inimigoAtingido].presente = 0;
+            adicionarMensagens(mensagemAtual, inimigos[inimigoAtingido].mensagem_atacado, inimigos[inimigoAtingido].n_mensagem_atacado);
+        }
         // Caso algum inimigo seja atingido, adiciona a mensagem desse inimigo à lista de mensagens
-        adicionarMensagens(mensagemAtual, inimigos[inimigoAtingido].mensagem_atacado, inimigos[inimigoAtingido].n_mensagem_atacado);
         ReiniciaTimer(inimigos[inimigoAtingido].timerAtacado);
     }
 }
@@ -344,6 +370,7 @@ void TrataEventoTeclado(PIG_Evento ev,Policial &pol, Inimigo inimigos[], Mensage
             if (pol.estado==ANDANDO)
                 MudaAcao(pol,PARADO);
         }
+
         ReiniciaTimer(pol.timerTeclado);
     }
 }
@@ -384,8 +411,8 @@ int testaColisaoInimigos(Policial pol, Inimigo inimigos[]) {
     Direcao(pol);
     for(int i=0;i<NUM_INIMIGOS;i++) {
         if(TestaColisaoAnimacoes(pol.anima, inimigos[i].anima) && TempoDecorrido(inimigos[i].timerAtacado)>1.0 ){
-            if((pol.direcao && inimigos[i].posX > pol.x + LARGPOLICIAL/2)
-            || (!pol.direcao && inimigos[i].posX < pol.x -LARGPOLICIAL/2)){
+            if((pol.direcao && inimigos[i].x > pol.x + LARGPOLICIAL/2)
+            || (!pol.direcao && inimigos[i].x < pol.x -LARGPOLICIAL/2)){
                 return i;
             }
         }
@@ -427,6 +454,142 @@ void verificaReputacao(Policial &pol){
     }
 }
 
+int ComparaPosicao(const void *p1, const void *p2){
+    Inimigo ini1 = *(Inimigo*)p1;
+    Inimigo ini2 = *(Inimigo*)p2;
+    if (ini1.y > ini2.y) return -1;
+    if (ini1.y == ini2.y) return 0;
+    if (ini1.y < ini2.y) return +1;
+}
+
+Fase iniciarTutorial(){
+    // Inimigo Bom
+    Inimigo inimigoBom;
+
+    inimigoBom.anima = CriaAnimacao("..//imagens//inimigos.png", false);
+
+    SetDimensoesAnimacao(inimigoBom.anima,1.05*ALTPOLICIAL,1.05*LARGPOLICIAL);
+
+    CarregaFramesPorLinhaAnimacao(inimigoBom.anima, 1, 8, 12);
+    CriaModoAnimacao(inimigoBom.anima, 1, 0);
+    InsereFrameAnimacao(inimigoBom.anima, 1, 2, 0.1);
+
+    DeslocaAnimacao(inimigoBom.anima, 300, 180);
+    inimigoBom.x = 300;
+    inimigoBom.y = 180;
+    inimigoBom.timerAtacado = CriaTimer();
+
+    //Iniciando a gravidade do crime
+    inimigoBom.gravidade_crime = -2;
+    inimigoBom.presente = 1;
+    inimigoBom.nocauteado = 0;
+    inimigoBom.hp = 3;
+
+
+    inimigoBom.n_mensagem_atacado = 3;
+    inimigoBom.mensagem_atacado = (char**)malloc(inimigoBom.n_mensagem_atacado*sizeof(char*));
+
+    for(int i=0;i<inimigoBom.n_mensagem_atacado;i++){
+        inimigoBom.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    }
+
+    strcpy(inimigoBom.mensagem_atacado[0], "Ai!");
+    strcpy(inimigoBom.mensagem_atacado[1], "Ta maluco?");
+    strcpy(inimigoBom.mensagem_atacado[2], "Sou bandido não, parceiro.");
+
+
+    inimigoBom.n_mensagem_interacao = 2;
+    inimigoBom.mensagem_interacao = (char**)malloc(inimigoBom.n_mensagem_interacao*sizeof(char*));
+
+    for(int i=0;i<inimigoBom.n_mensagem_interacao;i++){
+        inimigoBom.mensagem_interacao[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    }
+
+    strcpy(inimigoBom.mensagem_interacao[0], "Droga! Acabei de voltar de uma entrevista de emprego e fui reprovado.");
+    strcpy(inimigoBom.mensagem_interacao[1], "Talvez eles não tenham gostado quando eu falei que morava em um bairro pobre.");
+
+    MudaModoAnimacao(inimigoBom.anima, 1, 0);
+
+
+    // Inimigo Ruim
+    Inimigo inimigoRuim;
+
+    inimigoRuim.anima = CriaAnimacao("..//imagens//inimigos.png", false);
+
+    SetDimensoesAnimacao(inimigoRuim.anima,1.05*ALTPOLICIAL,1.05*LARGPOLICIAL);
+
+    CarregaFramesPorLinhaAnimacao(inimigoRuim.anima, 1, 8, 12);
+    CriaModoAnimacao(inimigoRuim.anima, 1, 0);
+    InsereFrameAnimacao(inimigoRuim.anima, 1, 2, 0.1);
+
+    DeslocaAnimacao(inimigoRuim.anima, 400, 200);
+    inimigoRuim.x = 400;
+    inimigoRuim.y = 200;
+    inimigoRuim.timerAtacado = CriaTimer();
+
+    //Iniciando a gravidade do crime
+    inimigoRuim.gravidade_crime = -2;
+    inimigoRuim.presente = 1;
+    inimigoRuim.nocauteado = 0;
+    inimigoRuim.hp = 3;
+
+
+    inimigoRuim.n_mensagem_atacado = 3;
+    inimigoRuim.mensagem_atacado = (char**)malloc(inimigoRuim.n_mensagem_atacado*sizeof(char*));
+
+    for(int i=0;i<inimigoRuim.n_mensagem_atacado;i++){
+        inimigoRuim.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    }
+
+    strcpy(inimigoRuim.mensagem_atacado[0], "Ai!");
+    strcpy(inimigoRuim.mensagem_atacado[1], "Ta maluco?");
+    strcpy(inimigoRuim.mensagem_atacado[2], "Sou bandido não, parceiro.");
+
+
+    inimigoRuim.n_mensagem_interacao = 3;
+    inimigoRuim.mensagem_interacao = (char**)malloc(inimigoRuim.n_mensagem_interacao*sizeof(char*));
+
+    for(int i=0;i<inimigoRuim.n_mensagem_interacao;i++){
+        inimigoRuim.mensagem_interacao[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    }
+
+    strcpy(inimigoRuim.mensagem_interacao[0], "Aaaaaaaa eu vou matar todo mundo!!!");
+    strcpy(inimigoRuim.mensagem_interacao[1], "Cadê a minha faca de cortar manteiga???");
+    strcpy(inimigoRuim.mensagem_interacao[2], "Vou rancar seu bucho fora!!!");
+
+    MudaModoAnimacao(inimigoRuim.anima, 1, 0);
+
+
+    Cenario cenario;
+
+    cenario.nomeArq = (char*)malloc(62*sizeof(char));
+    strcpy(cenario.nomeArq, "cenario_delegacia.png");
+
+    cenario.minX = 170;
+    cenario.minY = 130;
+    cenario.maxX = 550;
+    cenario.maxY = 393;
+
+    cenario.largura = 800;
+    cenario.altura = 600;
+
+
+
+    Fase fase;
+
+    fase.n_inimigos = 2;
+    fase.inimigos = (Inimigo*)malloc(fase.n_inimigos*sizeof(Inimigo));
+
+    fase.inimigos[0] = inimigoBom;
+    fase.inimigos[1] = inimigoRuim;
+
+
+    fase.cenario = cenario;
+
+    return fase;
+}
+
+
 // Função principal
 int main( int argc, char* args[] ){
 
@@ -437,14 +600,21 @@ int main( int argc, char* args[] ){
     // Inicializa os elementos principais do jogo, jogador, cenário, inimigos...
     Policial pol = criaPolicial();
 
+    Fase fase_tutorial = iniciarTutorial();
+
+    NUM_INIMIGOS = fase_tutorial.n_inimigos;
+
     Inimigo inimigos[NUM_INIMIGOS];
-    inimigos[0] = inicializarInimigo();
+
+    for(int i=0;i<NUM_INIMIGOS;i++){
+        inimigos[i] = fase_tutorial.inimigos[i];
+    }
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 
-    Cenario cenario = inicializarCenario();
+    //Cenario cenario = inicializarCenario();
 
-    int cena = CriaCena(cenario);
+    int cena = CriaCena(fase_tutorial.cenario);
 
     //loop principal do jogo
     while(JogoRodando()){
@@ -455,7 +625,7 @@ int main( int argc, char* args[] ){
 
         TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
 
-        AtualizaPolicial(pol, cenario);
+        AtualizaPolicial(pol, fase_tutorial.cenario);
 
         AjustaCamera(pol);
 
@@ -463,19 +633,29 @@ int main( int argc, char* args[] ){
 
         DesenhaCenario(cena);
 
-        // Desenha os inimigos
-        for(int i=0;i<NUM_INIMIGOS;i++) {
-            DesenhaAnimacao(inimigos[i].anima);
-        }
+        // Desenha os inimigos e o policial
+        int flag = 0;
 
-        DesenhaPolicial(pol);
+        qsort(inimigos, NUM_INIMIGOS, sizeof(Inimigo), ComparaPosicao);
+
+        for(int i=0;i<NUM_INIMIGOS;i++) {
+            if(inimigos[i].presente){
+                if(pol.y>inimigos[i].y && flag!=1){
+                    DesenhaPolicial(pol);
+                    flag = 1;
+                }
+                DesenhaAnimacao(inimigos[i].anima);
+                }
+        }
+        if(flag == 0){
+            DesenhaPolicial(pol);
+        }
 
         if(mensagemAtual != NULL){ // Se ainda tiver mensagem na lista, exibe na tela
             EscreverEsquerda(mensagemAtual->texto, 10, 50);
         }else{
             verificaReputacao(pol);
         }
-
 
         //PreparaCameraFixa();
 
@@ -487,3 +667,5 @@ int main( int argc, char* args[] ){
 
     return 0;
 }
+
+
