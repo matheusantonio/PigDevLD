@@ -140,6 +140,10 @@ typedef struct {
     Inimigo *inimigos;
     int n_inimigos;
     Cenario cenario;
+
+    int n_mensagens_iniciais;
+    char** mensagens_iniciais;
+
 } Fase;
 
 // Declaração da função que testa a colisão com os inimigos
@@ -218,7 +222,7 @@ void iniciaReputacao(Policial &pol){
 
     srand(time(NULL));
     // Valor ainda a ser ajustado
-    pol.reputacao += rand() % 30 + 0;
+    pol.reputacao += rand() % 50 + 20;
 
 }
 
@@ -289,11 +293,6 @@ void modificaReputacao(Policial &pol, int gravidade_crime){
     int piso= (gravidade_crime-1)*10+1;
     int teto = gravidade_crime * 10;
     pol.reputacao += rand() % teto + piso;
-
-    if(pol.reputacao < 0)
-    {
-        EscreverEsquerda("Game Over !",50,50);
-    }
 }
 
 // Função de ataque do policial
@@ -410,7 +409,9 @@ int testaColisaoInimigos(Policial pol, Inimigo inimigos[]) {
     // de costas mas houver colisão, o ataque e a interação não funcionam.
     Direcao(pol);
     for(int i=0;i<NUM_INIMIGOS;i++) {
-        if(TestaColisaoAnimacoes(pol.anima, inimigos[i].anima) && TempoDecorrido(inimigos[i].timerAtacado)>1.0 ){
+        if(inimigos[i].presente &&
+        TestaColisaoAnimacoes(pol.anima, inimigos[i].anima) &&
+        TempoDecorrido(inimigos[i].timerAtacado)>1.0 ){
             if((pol.direcao && inimigos[i].x > pol.x + LARGPOLICIAL/2)
             || (!pol.direcao && inimigos[i].x < pol.x -LARGPOLICIAL/2)){
                 return i;
@@ -447,11 +448,13 @@ void DesenhaCenario(int cena){
     }*/
 }
 
-void verificaReputacao(Policial &pol){
+int verificaReputacao(Policial &pol, Mensagem **mensagemAtual){
 
     if(pol.reputacao < 0){
-        EscreverEsquerda("Voce foi exonerado !",10,50);
+        adicionarMensagem(mensagemAtual, "Voce foi exonerado !");
+        return 1;
     }
+    return 0;
 }
 
 int ComparaPosicao(const void *p1, const void *p2){
@@ -462,7 +465,8 @@ int ComparaPosicao(const void *p1, const void *p2){
     if (ini1.y < ini2.y) return +1;
 }
 
-Fase iniciarTutorial(){
+
+Inimigo criaInimigoBom(){
     // Inimigo Bom
     Inimigo inimigoBom;
 
@@ -493,10 +497,15 @@ Fase iniciarTutorial(){
         inimigoBom.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
     }
 
-    strcpy(inimigoBom.mensagem_atacado[0], "Ai!");
-    strcpy(inimigoBom.mensagem_atacado[1], "Ta maluco?");
-    strcpy(inimigoBom.mensagem_atacado[2], "Sou bandido não, parceiro.");
-
+    strcpy(inimigoBom.mensagem_atacado[0], "[Como pode ver, atacar pessoas que não estão cometendo delito algum]");
+    strcpy(inimigoBom.mensagem_atacado[1], "[fará com que você perca a moral na corporação.]");
+    strcpy(inimigoBom.mensagem_atacado[2], "[Em caso de reincidência, você pode até ser exonerado.]");
+    strcpy(inimigoBom.mensagem_atacado[2], "[Temos uma equipe de paramédicos nas ruas para que evitar que as pessoas morram,]");
+    strcpy(inimigoBom.mensagem_atacado[2], "[mas isso não atenuará seu comportamento fora dos princípios da corporação.]");
+    strcpy(inimigoBom.mensagem_atacado[2], "[Portanto, tome cuidado.]");
+    strcpy(inimigoBom.mensagem_atacado[2], "- Muito bem, novato!");
+    strcpy(inimigoBom.mensagem_atacado[2], "Nós perdoaremos seu comportamento dessa vez, visto que você está apenas começando.");
+    strcpy(inimigoBom.mensagem_atacado[2], "Mas fique ciente de que não haverá uma terceira chance.");
 
     inimigoBom.n_mensagem_interacao = 2;
     inimigoBom.mensagem_interacao = (char**)malloc(inimigoBom.n_mensagem_interacao*sizeof(char*));
@@ -510,7 +519,10 @@ Fase iniciarTutorial(){
 
     MudaModoAnimacao(inimigoBom.anima, 1, 0);
 
+    return inimigoBom;
+}
 
+Inimigo criaInimigoRuim(){
     // Inimigo Ruim
     Inimigo inimigoRuim;
 
@@ -528,23 +540,26 @@ Fase iniciarTutorial(){
     inimigoRuim.timerAtacado = CriaTimer();
 
     //Iniciando a gravidade do crime
-    inimigoRuim.gravidade_crime = -2;
+    inimigoRuim.gravidade_crime = 2;
     inimigoRuim.presente = 1;
     inimigoRuim.nocauteado = 0;
     inimigoRuim.hp = 3;
 
 
-    inimigoRuim.n_mensagem_atacado = 3;
+    inimigoRuim.n_mensagem_atacado = 7;
     inimigoRuim.mensagem_atacado = (char**)malloc(inimigoRuim.n_mensagem_atacado*sizeof(char*));
 
     for(int i=0;i<inimigoRuim.n_mensagem_atacado;i++){
         inimigoRuim.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
     }
 
-    strcpy(inimigoRuim.mensagem_atacado[0], "Ai!");
-    strcpy(inimigoRuim.mensagem_atacado[1], "Ta maluco?");
-    strcpy(inimigoRuim.mensagem_atacado[2], "Sou bandido não, parceiro.");
-
+    strcpy(inimigoRuim.mensagem_atacado[0], "- Muito bem, novato!");
+    strcpy(inimigoRuim.mensagem_atacado[1], "Aqui na corporação nós respeitamos aqueles que conseguem punir de forma direta, sem rodeios!");
+    strcpy(inimigoRuim.mensagem_atacado[2], "Continue assim que logo você ganhará sua primeira medalha!");
+    strcpy(inimigoRuim.mensagem_atacado[3], " - No entanto, a rua não consiste apenas de maus elementos.");
+    strcpy(inimigoRuim.mensagem_atacado[4], "Há pessoas também que estão ali apenas exercendo seus direitos e deveres como cidadãos.");
+    strcpy(inimigoRuim.mensagem_atacado[5], "Tentar uma abordagem e punir essas pessoas pode lhe causar problemas futuros com a chefia.");
+    strcpy(inimigoRuim.mensagem_atacado[6], "Tome cuidado para não hostilizar essas pessoas de forma recorrente.");
 
     inimigoRuim.n_mensagem_interacao = 3;
     inimigoRuim.mensagem_interacao = (char**)malloc(inimigoRuim.n_mensagem_interacao*sizeof(char*));
@@ -559,6 +574,11 @@ Fase iniciarTutorial(){
 
     MudaModoAnimacao(inimigoRuim.anima, 1, 0);
 
+    return inimigoRuim;
+}
+
+
+Fase iniciarTutorial(){
 
     Cenario cenario;
 
@@ -573,20 +593,64 @@ Fase iniciarTutorial(){
     cenario.largura = 800;
     cenario.altura = 600;
 
-
-
     Fase fase;
 
     fase.n_inimigos = 2;
     fase.inimigos = (Inimigo*)malloc(fase.n_inimigos*sizeof(Inimigo));
 
-    fase.inimigos[0] = inimigoBom;
-    fase.inimigos[1] = inimigoRuim;
+    fase.inimigos[0] = criaInimigoRuim();
+    fase.inimigos[1] = criaInimigoBom();
 
+    fase.inimigos[1].presente = 0;
 
     fase.cenario = cenario;
 
+    fase.n_mensagens_iniciais = 17;
+    fase.mensagens_iniciais = (char**)malloc(fase.n_mensagens_iniciais*sizeof(char*));
+
+    for(int i=0;i<fase.n_mensagens_iniciais;i++){
+        fase.mensagens_iniciais[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    }
+
+    strcpy(fase.mensagens_iniciais[0], "A história se inicia com um policial, após receber sua licença para trabalhar, recebendo");
+    strcpy(fase.mensagens_iniciais[1], "instruções do seu superior sobre as principais atividades que ele deverá exercer nas ruas.");
+    strcpy(fase.mensagens_iniciais[2], "- Olá, novato! Bem-vindo à corporação. Você será designado para fazer serviços das ruas da cidade,");
+    strcpy(fase.mensagens_iniciais[3], "buscando sempre manter a ordem e tendo certeza que os infratores não saiam impunes.");
+    strcpy(fase.mensagens_iniciais[4], "Lembre-se que, desde já, suas atitudes estarão sendo julgadas,");
+    strcpy(fase.mensagens_iniciais[5], "então tenha bastante cuidado em suas tomadas de decisão em suas abordagens.");
+    strcpy(fase.mensagens_iniciais[6], "[Como um policial em serviço, você deve manter a lei e a ordem nas ruas.]");
+    strcpy(fase.mensagens_iniciais[7], "[Lembre-se que, no caso de presenciar um delito, você deve punir o infrator para]");
+    strcpy(fase.mensagens_iniciais[8], "[que ele aprenda e que ele tenha ciência das consequências caso isso se repetir.]");
+    strcpy(fase.mensagens_iniciais[9], "- Antes de ir pras ruas, vamos simular aqui um flagrante.");
+    strcpy(fase.mensagens_iniciais[10], "Colocamos um boneco de treino para que você possa treinar sua abordagem.");
+    strcpy(fase.mensagens_iniciais[11], "Esse boneco de treino está fazendo coisas ruins, então você precisa impedi-lo. Vai!");
+    strcpy(fase.mensagens_iniciais[12], "[Aperte X para interagir com o boneco.]");
+    strcpy(fase.mensagens_iniciais[13], "[Apesar de nem sempre funcionar, uma abordagem mais amena]");
+    strcpy(fase.mensagens_iniciais[14], "[pode evitar que algum engano seja cometido.]");
+    strcpy(fase.mensagens_iniciais[15], "[Aperte Z para atacar o boneco.]");
+
     return fase;
+}
+
+void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
+    int i=0;
+
+    while (i<qtdInimigos){
+        if (inimigos[i].hp==0){
+            qtdInimigos--;
+            inimigos[i] = inimigos[qtdInimigos];
+        }else i++;
+    }
+}
+
+
+void trataEventosFase(Fase &fase, Mensagem **mensagem, int &fimJogo){
+    if(fase.inimigos[0].hp == 0 && fase.inimigos[1].hp > 0){
+        fase.inimigos[1].presente = 1;
+    }
+    if(fase.inimigos[0].hp == 0 && fase.inimigos[1].hp == 0){
+        fimJogo = 1;
+    }
 }
 
 
@@ -594,6 +658,7 @@ Fase iniciarTutorial(){
 int main( int argc, char* args[] ){
 
     CriaJogo("Law & Disorder");
+    int fimJogo = 0;
 
     meuTeclado = GetTeclado();
 
@@ -604,13 +669,14 @@ int main( int argc, char* args[] ){
 
     NUM_INIMIGOS = fase_tutorial.n_inimigos;
 
-    Inimigo inimigos[NUM_INIMIGOS];
-
-    for(int i=0;i<NUM_INIMIGOS;i++){
-        inimigos[i] = fase_tutorial.inimigos[i];
-    }
+    Inimigo* inimigos = fase_tutorial.inimigos;
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
+
+    // Adiciona mensagens iniciais
+    for(int i=0;i<fase_tutorial.n_mensagens_iniciais;i++){
+        adicionarMensagem(&mensagemAtual, fase_tutorial.mensagens_iniciais[i]);
+    }
 
     //Cenario cenario = inicializarCenario();
 
@@ -625,6 +691,8 @@ int main( int argc, char* args[] ){
 
         TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
 
+        trataEventosFase(fase_tutorial, &mensagemAtual, fimJogo);
+
         AtualizaPolicial(pol, fase_tutorial.cenario);
 
         AjustaCamera(pol);
@@ -632,6 +700,8 @@ int main( int argc, char* args[] ){
         IniciaDesenho();
 
         DesenhaCenario(cena);
+
+        //EliminaApagados(inimigos, NUM_INIMIGOS);
 
         // Desenha os inimigos e o policial
         int flag = 0;
@@ -645,21 +715,23 @@ int main( int argc, char* args[] ){
                     flag = 1;
                 }
                 DesenhaAnimacao(inimigos[i].anima);
-                }
+            }
         }
         if(flag == 0){
             DesenhaPolicial(pol);
         }
 
+        //if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
+
         if(mensagemAtual != NULL){ // Se ainda tiver mensagem na lista, exibe na tela
             EscreverEsquerda(mensagemAtual->texto, 10, 50);
-        }else{
-            verificaReputacao(pol);
         }
 
         //PreparaCameraFixa();
 
         EncerraDesenho();
+
+        if(fimJogo && mensagemAtual == NULL) FinalizaJogo();
     }
 
     //o jogo será encerrado
