@@ -18,10 +18,6 @@ PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
 #define FOLGATELAX 200
 #define FOLGATELAY 100
 
-//#define BASECHAO 280
-
-//#define QTDPISOS 10
-
 // Quantidade de inimigos no cenário
 int NUM_INIMIGOS;
 
@@ -303,7 +299,7 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
     int inimigoAtingido = testaColisaoInimigos(pol, inimigos);
     if(inimigoAtingido != -1){
         modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
-        printf("\n%d",pol.reputacao);
+        //printf("\n%d",pol.reputacao);
         inimigos[inimigoAtingido].hp --;
         if(inimigos[inimigoAtingido].hp == 0){
             inimigos[inimigoAtingido].nocauteado = 1;
@@ -605,7 +601,7 @@ Fase iniciarTutorial(){
 
     fase.cenario = cenario;
 
-    fase.n_mensagens_iniciais = 17;
+    fase.n_mensagens_iniciais = 16;
     fase.mensagens_iniciais = (char**)malloc(fase.n_mensagens_iniciais*sizeof(char*));
 
     for(int i=0;i<fase.n_mensagens_iniciais;i++){
@@ -624,10 +620,10 @@ Fase iniciarTutorial(){
     strcpy(fase.mensagens_iniciais[9], "- Antes de ir pras ruas, vamos simular aqui um flagrante.");
     strcpy(fase.mensagens_iniciais[10], "Colocamos um boneco de treino para que você possa treinar sua abordagem.");
     strcpy(fase.mensagens_iniciais[11], "Esse boneco de treino está fazendo coisas ruins, então você precisa impedi-lo. Vai!");
-    strcpy(fase.mensagens_iniciais[12], "[Aperte X para interagir com o boneco.]");
+    strcpy(fase.mensagens_iniciais[12], "[Aperte Z para interagir com o boneco.]");
     strcpy(fase.mensagens_iniciais[13], "[Apesar de nem sempre funcionar, uma abordagem mais amena]");
     strcpy(fase.mensagens_iniciais[14], "[pode evitar que algum engano seja cometido.]");
-    strcpy(fase.mensagens_iniciais[15], "[Aperte Z para atacar o boneco.]");
+    strcpy(fase.mensagens_iniciais[15], "[Aperte X para atacar o boneco.]");
 
     return fase;
 }
