@@ -749,7 +749,7 @@ int main( int argc, char* args[] ){
         qsort(inimigos, NUM_INIMIGOS, sizeof(Inimigo), ComparaPosicao);
 
         for(int i=0;i<NUM_INIMIGOS;i++) {
-            if(inimigos[i].presente){
+            if(inimigos[i].presente || (inimigos[i].nocauteado && TempoDecorrido(inimigos[i].timerAtacado) < 0.4)){
                 if(pol.y>inimigos[i].y && flag!=1){
                     DesenhaPolicial(pol);
                     flag = 1;
