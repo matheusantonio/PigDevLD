@@ -278,6 +278,7 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
     // Função testa se o ataque acertou algum inimigo
     int inimigoAtingido = testaColisaoInimigos(pol, inimigos);
     if(inimigoAtingido != -1){
+        SetColoracaoAnimacao(inimigos[inimigoAtingido].anima, VERMELHO);
         modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
         //printf("\n%d",pol.reputacao);
         inimigos[inimigoAtingido].hp --;
@@ -664,6 +665,13 @@ void trataEventosFase(Fase &fase, Mensagem **mensagem, int &fimJogo){
         if(flagBom && flagRuim) break;
     }
 
+    if(TempoDecorrido(inimigoRuim->timerAtacado) > 0.4) {
+        SetColoracaoAnimacao(inimigoRuim->anima, BRANCO);
+    }
+    if(TempoDecorrido(inimigoBom->timerAtacado) > 0.4) {
+        SetColoracaoAnimacao(inimigoBom->anima, BRANCO);
+    }
+
     if(inimigoRuim->hp == 0 && inimigoBom->hp > 0){
         inimigoBom->presente = 1;
     }
@@ -766,7 +774,7 @@ int main( int argc, char* args[] ){
             IniciaAutomacaoSprite(cena);
             IniciaAutomacaoAnimacao(pol.anima);
             DespausaTimer(fadeTimer);
-            if (TempoDecorrido(fadeTimer) > 5)
+            if (TempoDecorrido(fadeTimer) > 3)
                 strcpy(mensagemFinal, "Fim do Tutorial!");
             if (TempoDecorrido(fadeTimer) > 10) {
                 break;
