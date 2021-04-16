@@ -1,0 +1,47 @@
+{
+    "posX" : 600,
+    "posY" : 600,
+    "nomeArq" : "..//imagens//policial.png",
+    "linhasFrame" : 5,
+    "colunasFrame" : 3,
+    "modosAnimacao" : [
+        {
+            "codigoModo" : 0,
+            "loop" : 0,
+            "frames" : [
+                {
+                    "codigoFrame" : 8,
+                    "tempo" : 0.1
+                }
+            ]
+        },
+        {
+            "codigoModo" : 1,
+            "loop" : 1,
+            "frames" : [
+                {
+                    "codigoFrame" : 7,
+                    "tempo" : 0.1
+                },
+                {
+                    "codigoFrame" : 8,
+                    "tempo" : 0.1
+                },
+                {
+                    "codigoFrame" : 9,
+                    "tempo" : 0.1
+                }
+            ]
+        },
+        {
+            "codigoModo" : 2,
+            "loop" : 0,
+            "frames" : [
+                {
+                    "codigoFrame" : 13,
+                    "tempo" : 0.5
+                }
+            ]
+        }
+    ]
+}

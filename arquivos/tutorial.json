@@ -1,0 +1,109 @@
+{
+    "cenario" : {
+        "nomeArq" : "cenario_delegacia_pol.png",
+        "minX" : 170,
+        "minY" : 130,
+        "maxX" : 550,
+        "maxY" : 393,
+        "largura" : 800,
+        "altura" : 600
+    },
+    "inimigos" : [
+        {
+            "nomeArq" : "..//imagens//boneco_ruim.png",
+            "gravidadeCrime" : 2,
+            "iniciaPresente" : 1,
+            "hp" : 3,
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            "xInicial" : 300,
+            "yInicial" : 200,
+            "linhasFrame" : 4,
+            "colunasFrame" : 3,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 2,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [
+                "- Muito bem, novato!",
+                "- Aqui na corporação nós respeitamos aqueles que conseguem punir de forma direta, sem rodeios!",
+                "- Continue assim que logo você ganhará sua primeira medalha!",
+                "- No entanto, a rua não consiste apenas de maus elementos.",
+                "- Há pessoas também que estão ali apenas exercendo seus direitos e deveres como cidadãos.",
+                "- Tentar uma abordagem e punir essas pessoas pode lhe causar problemas futuros com a chefia.",
+                "- Tome cuidado para não hostilizar essas pessoas de forma recorrente.",
+                "[Interaja com o outro boneco e discipline-o!]"
+            ],
+            "mensagensInteracao" : [
+                "Aaaaaaaa eu vou matar todo mundo!!!",
+                "Cadê a minha faca de cortar manteiga???",
+                "Vou rancar seu bucho fora!!!"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//boneco_bom.png",
+            "gravidadeCrime" : -2,
+            "iniciaPresente" : 0,
+            "hp" : 3,
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            "xInicial" : 300,
+            "yInicial" : 300,
+            "linhasFrame" : 4,
+            "colunasFrame" : 3,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 2,
+                            "tempo" : 0.1
+                        }
+                    ]
+
+                }
+            ],
+            "mensagensAtacado" : [
+                "[Como pode ver, atacar pessoas que não estão cometendo delito algum]",
+                "[fará com que você perca a moral na corporação.]",
+                "[Em caso de reincidência, você pode até ser exonerado.]",
+                "[Temos uma equipe de paramédicos nas ruas para que evitar que as pessoas morram,]",
+                "[mas isso não atenuará seu comportamento fora dos princípios da corporação.]",
+                "[Portanto, tome cuidado.]",
+                "- Muito bem, novato!",
+                "- Nós perdoaremos seu comportamento dessa vez, visto que você está apenas começando.",
+                "- Mas fique ciente de que não haverá uma terceira chance."
+            ],
+            "mensagensInteracao" : [
+                "- Droga! Acabei de voltar de uma entrevista de emprego e fui reprovado.",
+                "- Talvez eles não tenham gostado quando eu falei que morava em um bairro pobre."
+            ]
+        }
+    ],
+    "mensagensIniciais" : [
+        "[Aperte Z para passar as mensagens.]",
+        "A história se inicia com um policial, após receber sua licença para trabalhar, recebendo",
+        "instruções do seu superior sobre as principais atividades que ele deverá exercer nas ruas.",
+        "- Olá, novato! Bem-vindo à corporação. Você será designado para fazer serviços das ruas da cidade,",
+        "buscando sempre manter a ordem e tendo certeza que os infratores não saiam impunes.",
+        "- Lembre-se que, desde já, suas atitudes estarão sendo julgadas,",
+        "então tenha bastante cuidado em suas tomadas de decisão em suas abordagens.",
+        "- Como um policial em serviço, você deve manter a lei e a ordem nas ruas.",
+        "- Lembre-se que, no caso de presenciar um delito, você deve punir o infrator para",
+        "que ele aprenda e que ele tenha ciência das consequências caso isso volte a se repetir.",
+        "- Antes de ir pras ruas, vamos simular aqui um flagrante.",
+        "- Colocamos um boneco de treino para que você possa treinar sua abordagem.",
+        "- Esse boneco de treino está fazendo coisas ruins, então você precisa impedi-lo. Vai!",
+        "- Apesar de nem sempre funcionar, uma abordagem mais amena pode evitar que algum engano seja cometido.",
+        "[Aperte Z para interagir com o boneco. Aperte X para atacar o boneco.]"
+    ]
+}

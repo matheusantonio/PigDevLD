@@ -1,6 +1,8 @@
 #include "PIG.h"
+#include <stdio.h>
 #include<string.h>
 #include <time.h>
+#include "cJSON.h"
 
 PIG_Evento evento;          //evento ser tratado a cada pssada do loop principal
 PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
@@ -18,14 +20,13 @@ PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
 #define FOLGATELAX 200
 #define FOLGATELAY 100
 
-#define ID_INIMIGO_RUIM 0
-#define ID_INIMIGO_BOM 1
+
 
 // Quantidade de inimigos no cenário
 int NUM_INIMIGOS;
 
 // Quantidade máxima de caracteres de uma mensagem que pode ser exibida
-#define MAX_TEXT_SIZE 100
+#define MAX_TEXT_SIZE 150
 
 
 int CENA_INICIAL; // começa 1, seta 0 depois que passarem as primeiras mensagens
@@ -65,7 +66,21 @@ typedef struct {
 
 } Inimigo;
 
+// Funções JSON
+char * lerArquivoJSON(char *nomeArq){
+    long len;
+    char *data;
 
+    FILE *f=fopen(nomeArq,"rb");
+    fseek(f,0,SEEK_END);
+    len=ftell(f);
+    fseek(f,0,SEEK_SET);
+    data=(char*)malloc(len+1);
+    fread(data,1,len,f);
+    data[len]='\0';
+
+    return data;
+}
 
 // Lista encadeada de mensagens a serem exibidas na tela.
 typedef struct mensagem {
@@ -105,7 +120,6 @@ void passarMensagem(Mensagem **ini){
     *ini = aux;
 }
 
-
 // Estrutura que compõe o cenário. Contém as principais informações sobre o cenário.
 typedef struct {
     char* nomeArq; // Nome do arquivo de fundo
@@ -115,27 +129,6 @@ typedef struct {
     int largura, altura; // Largura e altura do cenário
 
 } Cenario;
-
-// Função que inicializa o cenário
-// Por enquanto, há apenas um cenário. Função será
-// otimizada para ler cenários diferentes de acordo
-// com a fase em que o jogador está
-Cenario inicializarCenario(){
-    Cenario cenario;
-
-    cenario.nomeArq = (char*)malloc(62*sizeof(char));
-    strcpy(cenario.nomeArq, "cenario_delegacia_pol.png");
-
-    cenario.minX = 170;
-    cenario.minY = 130;
-    cenario.maxX = 550;
-    cenario.maxY = 393;
-
-    cenario.largura = 800;
-    cenario.altura = 600;
-    // 563, 969
-    return cenario;
-}
 
 /*
  * Estrutura que compõe a fase que está sendo jogada.
@@ -155,7 +148,6 @@ typedef struct {
 // Protótipo da função que testa a colisão com os inimigos.
 // Função está sendo implementada mais abaixo.
 int testaColisaoInimigos(Policial pol, Inimigo inimigos[]);
-
 
 // Faz o tratamento do estado do policial entre andar e atacar.
 void MudaAcao(Policial &pol,int acao){
@@ -193,28 +185,43 @@ void iniciaReputacao(Policial &pol){
 // Cria o personagem principal
 Policial criaPolicial(){
     Policial pol;
-    int posX = 600;
-    int posY = 600;
 
-    pol.anima = CriaAnimacao("..//imagens//policial.png",0);
+    const char * arquivoJsonPolicial = lerArquivoJSON("..//arquivos//policial.json");
+    cJSON *jsonPolicial = cJSON_Parse(arquivoJsonPolicial);
+
+    int posX = cJSON_GetObjectItemCaseSensitive(jsonPolicial, "posX")->valueint;
+    int posY = cJSON_GetObjectItemCaseSensitive(jsonPolicial, "posY")->valueint;
+
+    pol.anima = CriaAnimacao(cJSON_GetObjectItemCaseSensitive(jsonPolicial, "nomeArq")->valuestring, 0);
     SetDimensoesAnimacao(pol.anima,ALTPOLICIAL,LARGPOLICIAL);
 
-    CarregaFramesPorLinhaAnimacao(pol.anima,1,5,3);
+    CarregaFramesPorLinhaAnimacao(pol.anima,1,
+        cJSON_GetObjectItemCaseSensitive(jsonPolicial, "linhasFrame")->valueint,
+        cJSON_GetObjectItemCaseSensitive(jsonPolicial, "colunasFrame")->valueint);
 
-    int k=7;
 
-    // Animação do personagem parado
-    CriaModoAnimacao(pol.anima,PARADO,0);
-    InsereFrameAnimacao(pol.anima,PARADO,8,0.1);
+    cJSON *jsonModosAnimacao = cJSON_GetObjectItemCaseSensitive(jsonPolicial, "modosAnimacao");
 
-    // Animação do personagem andando
-    CriaModoAnimacao(pol.anima,ANDANDO,1);
-    for(int j=0;j<3;j++)
-        InsereFrameAnimacao(pol.anima,ANDANDO,k++,0.1);
+    for(int i=0;i<cJSON_GetArraySize(jsonModosAnimacao);i++){
 
-    // Animação do personagem atacando
-    CriaModoAnimacao(pol.anima,ATACANDO,0);
-    InsereFrameAnimacao(pol.anima,ATACANDO,13,0.5);
+        cJSON * jsonModoAnimacao = cJSON_GetArrayItem(jsonModosAnimacao, i);
+        int codigoModo = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "codigoModo")->valueint;
+        int loop = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "loop")->valueint;
+
+        CriaModoAnimacao(pol.anima, codigoModo, loop);
+
+        cJSON * jsonFramesAnimacao = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "frames");
+
+        for(int j=0;j<cJSON_GetArraySize(jsonFramesAnimacao);j++){
+
+            cJSON* jsonFrameAnimacao = cJSON_GetArrayItem(jsonFramesAnimacao, j);
+
+            InsereFrameAnimacao(pol.anima, codigoModo,
+                cJSON_GetObjectItemCaseSensitive(jsonFrameAnimacao, "codigoFrame")->valueint,
+                cJSON_GetObjectItemCaseSensitive(jsonFrameAnimacao, "tempo")->valuedouble);
+        }
+
+    }
 
     // Estado inicial do personagem
     pol.estado = PARADO;
@@ -451,181 +458,138 @@ int ComparaPosicao(const void *p1, const void *p2){
     if (ini1.y < ini2.y) return +1;
 }
 
-/*
- * Criação de um dos inimigos para fins de tutorial
- * Função a ser melhorada para o projeto final.
- */
-Inimigo criaInimigoBom(){
-    // Inimigo Bom
-    Inimigo inimigoBom;
-    inimigoBom.id_inimigo = ID_INIMIGO_BOM;
-
-    inimigoBom.anima = CriaAnimacao("..//imagens//boneco_bom.png", false);
-
-    SetDimensoesAnimacao(inimigoBom.anima,1.05*ALTPOLICIAL,1.05*LARGPOLICIAL);
-
-    CarregaFramesPorLinhaAnimacao(inimigoBom.anima, 1, 4, 3);
-    CriaModoAnimacao(inimigoBom.anima, 1, 0);
-    InsereFrameAnimacao(inimigoBom.anima, 1, 2, 0.1);
-
-    DeslocaAnimacao(inimigoBom.anima, 300, 300);
-    inimigoBom.x = 300;
-    inimigoBom.y = 300;
-    inimigoBom.timerAtacado = CriaTimer();
-
-    //Iniciando a gravidade do crime
-    inimigoBom.gravidade_crime = -2;
-    inimigoBom.presente = 1;
-    inimigoBom.nocauteado = 0;
-    inimigoBom.hp = 3;
-
-
-    inimigoBom.n_mensagem_atacado = 9;
-    inimigoBom.mensagem_atacado = (char**)malloc(inimigoBom.n_mensagem_atacado*sizeof(char*));
-
-    for(int i=0;i<inimigoBom.n_mensagem_atacado;i++){
-        inimigoBom.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
-    }
-
-    strcpy(inimigoBom.mensagem_atacado[0], "[Como pode ver, atacar pessoas que não estão cometendo delito algum]");
-    strcpy(inimigoBom.mensagem_atacado[1], "[fará com que você perca a moral na corporação.]");
-    strcpy(inimigoBom.mensagem_atacado[2], "[Em caso de reincidência, você pode até ser exonerado.]");
-    strcpy(inimigoBom.mensagem_atacado[3], "[Temos uma equipe de paramédicos nas ruas para que evitar que as pessoas morram,]");
-    strcpy(inimigoBom.mensagem_atacado[4], "[mas isso não atenuará seu comportamento fora dos princípios da corporação.]");
-    strcpy(inimigoBom.mensagem_atacado[5], "[Portanto, tome cuidado.]");
-    strcpy(inimigoBom.mensagem_atacado[6], "- Muito bem, novato!");
-    strcpy(inimigoBom.mensagem_atacado[7], "- Nós perdoaremos seu comportamento dessa vez, visto que você está apenas começando.");
-    strcpy(inimigoBom.mensagem_atacado[8], "- Mas fique ciente de que não haverá uma terceira chance.");
-
-    inimigoBom.n_mensagem_interacao = 2;
-    inimigoBom.mensagem_interacao = (char**)malloc(inimigoBom.n_mensagem_interacao*sizeof(char*));
-
-    for(int i=0;i<inimigoBom.n_mensagem_interacao;i++){
-        inimigoBom.mensagem_interacao[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
-    }
-
-    strcpy(inimigoBom.mensagem_interacao[0], "- Droga! Acabei de voltar de uma entrevista de emprego e fui reprovado.");
-    strcpy(inimigoBom.mensagem_interacao[1], "- Talvez eles não tenham gostado quando eu falei que morava em um bairro pobre.");
-
-    MudaModoAnimacao(inimigoBom.anima, 1, 0);
-
-    return inimigoBom;
-}
 
 /* Criação de um dos inimigos para fins de tutoral.
  * Função a ser melhorada para o projeto final.
  */
-Inimigo criaInimigoRuim(){
-    // Inimigo Ruim
-    Inimigo inimigoRuim;
-    inimigoRuim.id_inimigo = ID_INIMIGO_RUIM;
+Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
 
-    inimigoRuim.anima = CriaAnimacao("..//imagens//boneco_ruim.png", false);
+    Inimigo inimigo;
+    inimigo.id_inimigo = pos;
 
-    SetDimensoesAnimacao(inimigoRuim.anima,1.05*ALTPOLICIAL,1.05*LARGPOLICIAL);
+    inimigo.anima = CriaAnimacao(cJSON_GetObjectItemCaseSensitive(jsonInimigo, "nomeArq")->valuestring, false);
 
-    CarregaFramesPorLinhaAnimacao(inimigoRuim.anima, 1, 4, 3);
-    CriaModoAnimacao(inimigoRuim.anima, 1, 0);
-    InsereFrameAnimacao(inimigoRuim.anima, 1, 2, 0.1);
+    SetDimensoesAnimacao(inimigo.anima,
+        (cJSON_GetObjectItemCaseSensitive(jsonInimigo, "modAltura")->valuedouble)*ALTPOLICIAL,
+        (cJSON_GetObjectItemCaseSensitive(jsonInimigo, "modLargura")->valuedouble)*LARGPOLICIAL);
 
-    DeslocaAnimacao(inimigoRuim.anima, 300, 200);
-    inimigoRuim.x = 300;
-    inimigoRuim.y = 200;
-    inimigoRuim.timerAtacado = CriaTimer();
+    CarregaFramesPorLinhaAnimacao(inimigo.anima, 1,
+        cJSON_GetObjectItemCaseSensitive(jsonInimigo, "linhasFrame")->valueint,
+        cJSON_GetObjectItemCaseSensitive(jsonInimigo, "colunasFrame")->valueint);
 
-    //Iniciando a gravidade do crime
-    inimigoRuim.gravidade_crime = 2;
-    inimigoRuim.presente = 1;
-    inimigoRuim.nocauteado = 0;
-    inimigoRuim.hp = 3;
+    cJSON* jsonModosAnimacao = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "modosAnimacao");
 
+    for(int i=0;i<cJSON_GetArraySize(jsonModosAnimacao);i++){
 
-    inimigoRuim.n_mensagem_atacado = 8;
-    inimigoRuim.mensagem_atacado = (char**)malloc(inimigoRuim.n_mensagem_atacado*sizeof(char*));
+        cJSON * jsonModoAnimacao = cJSON_GetArrayItem(jsonModosAnimacao, i);
+        int codigoModo = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "codigoModo")->valueint;
+        int loop = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "loop")->valueint;
 
-    for(int i=0;i<inimigoRuim.n_mensagem_atacado;i++){
-        inimigoRuim.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        CriaModoAnimacao(inimigo.anima, codigoModo, loop);
+
+        cJSON * jsonFramesAnimacao = cJSON_GetObjectItemCaseSensitive(jsonModoAnimacao, "frames");
+
+        for(int j=0;j<cJSON_GetArraySize(jsonFramesAnimacao);j++){
+
+            cJSON* jsonFrameAnimacao = cJSON_GetArrayItem(jsonFramesAnimacao, j);
+
+            InsereFrameAnimacao(inimigo.anima, codigoModo,
+                cJSON_GetObjectItemCaseSensitive(jsonFrameAnimacao, "codigoFrame")->valueint,
+                cJSON_GetObjectItemCaseSensitive(jsonFrameAnimacao, "tempo")->valuedouble);
+        }
+
     }
 
-    strcpy(inimigoRuim.mensagem_atacado[0], "- Muito bem, novato!");
-    strcpy(inimigoRuim.mensagem_atacado[1], "- Aqui na corporação nós respeitamos aqueles que conseguem punir de forma direta, sem rodeios!");
-    strcpy(inimigoRuim.mensagem_atacado[2], "- Continue assim que logo você ganhará sua primeira medalha!");
-    strcpy(inimigoRuim.mensagem_atacado[3], "- No entanto, a rua não consiste apenas de maus elementos.");
-    strcpy(inimigoRuim.mensagem_atacado[4], "- Há pessoas também que estão ali apenas exercendo seus direitos e deveres como cidadãos.");
-    strcpy(inimigoRuim.mensagem_atacado[5], "- Tentar uma abordagem e punir essas pessoas pode lhe causar problemas futuros com a chefia.");
-    strcpy(inimigoRuim.mensagem_atacado[6], "- Tome cuidado para não hostilizar essas pessoas de forma recorrente.");
-    strcpy(inimigoRuim.mensagem_atacado[7], "[Interaja com o outro boneco e discipline-o!]");
+    inimigo.x = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "xInicial")->valueint;
+    inimigo.y = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "yInicial")->valueint;
+    DeslocaAnimacao(inimigo.anima, inimigo.x, inimigo.y);
 
-    inimigoRuim.n_mensagem_interacao = 3;
-    inimigoRuim.mensagem_interacao = (char**)malloc(inimigoRuim.n_mensagem_interacao*sizeof(char*));
+    inimigo.timerAtacado = CriaTimer();
 
-    for(int i=0;i<inimigoRuim.n_mensagem_interacao;i++){
-        inimigoRuim.mensagem_interacao[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+    inimigo.gravidade_crime = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "gravidadeCrime")->valueint;
+    inimigo.presente = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "iniciaPresente")->valueint;
+    inimigo.hp = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "hp")->valueint;
+    inimigo.nocauteado = 0;
+
+    cJSON * jsonMensagensAtacado = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "mensagensAtacado");
+
+    inimigo.n_mensagem_atacado = cJSON_GetArraySize(jsonMensagensAtacado);
+    inimigo.mensagem_atacado = (char**)malloc(inimigo.n_mensagem_atacado*sizeof(char*));
+
+    for(int i=0;i<inimigo.n_mensagem_atacado;i++){
+        inimigo.mensagem_atacado[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        strcpy(inimigo.mensagem_atacado[i], cJSON_GetArrayItem(jsonMensagensAtacado, i)->valuestring);
     }
 
-    strcpy(inimigoRuim.mensagem_interacao[0], "Aaaaaaaa eu vou matar todo mundo!!!");
-    strcpy(inimigoRuim.mensagem_interacao[1], "Cadê a minha faca de cortar manteiga???");
-    strcpy(inimigoRuim.mensagem_interacao[2], "Vou rancar seu bucho fora!!!");
+    cJSON * jsonMensagensInteracao = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "mensagensInteracao");
 
-    MudaModoAnimacao(inimigoRuim.anima, 1, 0);
+    inimigo.n_mensagem_interacao = cJSON_GetArraySize(jsonMensagensInteracao);
+    inimigo.mensagem_interacao = (char**)malloc(inimigo.n_mensagem_interacao*sizeof(char*));
 
-    return inimigoRuim;
+    for(int i=0;i<inimigo.n_mensagem_interacao;i++){
+        inimigo.mensagem_interacao[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        strcpy(inimigo.mensagem_interacao[i], cJSON_GetArrayItem(jsonMensagensInteracao, i)->valuestring);
+    }
+
+    MudaModoAnimacao(inimigo.anima, 1, 0);
+
+    return inimigo;
 }
 
 /*
  * Função responsável por instanciar todos os elementos da fase tutorial, como cenário e inimigos.
  */
-Fase iniciarTutorial(){
+Fase carregarFaseJSON(char* arquivoJson){
+
+    const char * jsonTutorial = lerArquivoJSON(arquivoJson);
+    cJSON *tutorial_json = cJSON_Parse(jsonTutorial);
+
+    cJSON *jsonCenario = cJSON_GetObjectItemCaseSensitive(tutorial_json, "cenario");
 
     Cenario cenario;
 
     cenario.nomeArq = (char*)malloc(62*sizeof(char));
-    strcpy(cenario.nomeArq, "cenario_delegacia_pol.png");
+    strcpy(cenario.nomeArq,
+        cJSON_GetObjectItemCaseSensitive(jsonCenario, "nomeArq")->valuestring);
 
-    cenario.minX = 170;
-    cenario.minY = 130;
-    cenario.maxX = 550;
-    cenario.maxY = 393;
+    cenario.minX = cJSON_GetObjectItemCaseSensitive(jsonCenario, "minX")->valueint;
+    cenario.minY = cJSON_GetObjectItemCaseSensitive(jsonCenario, "minY")->valueint;
+    cenario.maxX = cJSON_GetObjectItemCaseSensitive(jsonCenario, "maxX")->valueint;
+    cenario.maxY = cJSON_GetObjectItemCaseSensitive(jsonCenario, "maxY")->valueint;
 
-    cenario.largura = 800;
-    cenario.altura = 600;
+    cenario.largura = cJSON_GetObjectItemCaseSensitive(jsonCenario, "largura")->valueint;
+    cenario.altura = cJSON_GetObjectItemCaseSensitive(jsonCenario, "altura")->valueint;
+
+    cJSON *jsonInimigos = cJSON_GetObjectItemCaseSensitive(tutorial_json, "inimigos");
 
     Fase fase;
 
-    fase.n_inimigos = 2;
+    fase.n_inimigos = cJSON_GetArraySize(jsonInimigos);
     fase.inimigos = (Inimigo*)malloc(fase.n_inimigos*sizeof(Inimigo));
 
-    fase.inimigos[0] = criaInimigoRuim();
-    fase.inimigos[1] = criaInimigoBom();
-
-    fase.inimigos[1].presente = 0;
+    for(int i=0;i<fase.n_inimigos;i++){
+        fase.inimigos[i] = criaInimigoJSON(cJSON_GetArrayItem(jsonInimigos, i), i);
+    }
 
     fase.cenario = cenario;
 
-    fase.n_mensagens_iniciais = 15;
+    cJSON *jsonMensagens = cJSON_GetObjectItemCaseSensitive(tutorial_json, "mensagensIniciais");
+
+    fase.n_mensagens_iniciais = cJSON_GetArraySize(jsonMensagens);
     fase.mensagens_iniciais = (char**)malloc(fase.n_mensagens_iniciais*sizeof(char*));
 
     for(int i=0;i<fase.n_mensagens_iniciais;i++){
         fase.mensagens_iniciais[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        strcpy(fase.mensagens_iniciais[i], cJSON_GetArrayItem(jsonMensagens, i)->valuestring);
     }
 
-    strcpy(fase.mensagens_iniciais[0], "[Aperte Z para passar as mensagens.]");
-    strcpy(fase.mensagens_iniciais[1], "A história se inicia com um policial, após receber sua licença para trabalhar, recebendo");
-    strcpy(fase.mensagens_iniciais[2], "instruções do seu superior sobre as principais atividades que ele deverá exercer nas ruas.");
-    strcpy(fase.mensagens_iniciais[3], "- Olá, novato! Bem-vindo à corporação. Você será designado para fazer serviços das ruas da cidade,");
-    strcpy(fase.mensagens_iniciais[4], "buscando sempre manter a ordem e tendo certeza que os infratores não saiam impunes.");
-    strcpy(fase.mensagens_iniciais[5], "- Lembre-se que, desde já, suas atitudes estarão sendo julgadas,");
-    strcpy(fase.mensagens_iniciais[6], "então tenha bastante cuidado em suas tomadas de decisão em suas abordagens.");
-    strcpy(fase.mensagens_iniciais[7], "- Como um policial em serviço, você deve manter a lei e a ordem nas ruas.");
-    strcpy(fase.mensagens_iniciais[8], "- Lembre-se que, no caso de presenciar um delito, você deve punir o infrator para");
-    strcpy(fase.mensagens_iniciais[9], "que ele aprenda e que ele tenha ciência das consequências caso isso volte a se repetir.");
-    strcpy(fase.mensagens_iniciais[10], "- Antes de ir pras ruas, vamos simular aqui um flagrante.");
-    strcpy(fase.mensagens_iniciais[11], "- Colocamos um boneco de treino para que você possa treinar sua abordagem.");
-    strcpy(fase.mensagens_iniciais[12], "- Esse boneco de treino está fazendo coisas ruins, então você precisa impedi-lo. Vai!");
-    strcpy(fase.mensagens_iniciais[13], "- Apesar de nem sempre funcionar, uma abordagem mais amena pode evitar que algum engano seja cometido.");
-    strcpy(fase.mensagens_iniciais[14], "[Aperte Z para interagir com o boneco. Aperte X para atacar o boneco.]");
-
     return fase;
+
+
+}
+
+Fase carregarTutorialJSON(){
+    return carregarFaseJSON("..//arquivos//tutorial.json");
 }
 
 void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
@@ -643,7 +607,10 @@ void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
  * Função que trata de eventos de transição da fase,
  * como o surgimento de inimigos e verificação de fase completada.
  */
-void trataEventosFase(Fase &fase, Mensagem **mensagem, int &fimJogo){
+void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo){
+
+    const int ID_INIMIGO_RUIM = 0;
+    const int ID_INIMIGO_BOM = 1;
 
     Inimigo* inimigoBom;
     Inimigo* inimigoRuim;
@@ -680,6 +647,53 @@ void trataEventosFase(Fase &fase, Mensagem **mensagem, int &fimJogo){
     }
 }
 
+// Função que desenha os inimigos e o policial.
+void desenhaPersonagens(Inimigo inimigos[], Policial &pol, int &qtdInimigos){
+
+        int flag = 0;
+
+        qsort(inimigos, NUM_INIMIGOS, sizeof(Inimigo), ComparaPosicao);
+
+        for(int i=0;i<NUM_INIMIGOS;i++) {
+            if(inimigos[i].presente || (inimigos[i].nocauteado && TempoDecorrido(inimigos[i].timerAtacado) < 0.4)){
+                if(pol.y>inimigos[i].y && flag!=1){
+                    DesenhaPolicial(pol);
+                    flag = 1;
+                }
+                DesenhaAnimacao(inimigos[i].anima);
+            }
+        }
+        if(flag == 0){
+            DesenhaPolicial(pol);
+        }
+
+}
+
+/*
+*  Função para finalizar o tutorial
+*/
+int fimTutorial(int fimJogo, Mensagem *mensagemAtual, Policial &pol,int cena, int fadeTimer, char mensagemFinal[]){
+
+     if(fimJogo && (mensagemAtual == NULL)) {
+            IniciaAutomacaoSprite(cena);
+            IniciaAutomacaoAnimacao(pol.anima);
+            DespausaTimer(fadeTimer);
+            if (TempoDecorrido(fadeTimer) > 3)
+                strcpy(mensagemFinal, "Fim do Tutorial!");
+            if (TempoDecorrido(fadeTimer) > 10)
+                return 1;
+    }
+     return 0;
+}
+
+// Função que escreve as mensagens na tela
+void escreveMensagem(Mensagem *mensagemAtual,int fonte,char mensagemFinal[]){
+
+    if(mensagemAtual != NULL){ // Se ainda tiver mensagem na lista, exibe na tela
+        EscreverCentralizada(mensagemAtual->texto, 400, 50, AMARELO, fonte);
+    }
+    EscreverCentralizada(mensagemFinal, 400, 400, AMARELO);
+}
 
 // Função principal
 int main( int argc, char* args[] ){
@@ -699,22 +713,20 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
 
-    Fase fase_tutorial = iniciarTutorial();
+    Fase faseAtual = carregarTutorialJSON();//iniciarTutorial();//
 
-    NUM_INIMIGOS = fase_tutorial.n_inimigos;
+    NUM_INIMIGOS = faseAtual.n_inimigos;
 
-    Inimigo* inimigos = fase_tutorial.inimigos;
+    Inimigo* inimigos = faseAtual.inimigos;
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 
     // Adiciona mensagens iniciais
-    for(int i=0;i<fase_tutorial.n_mensagens_iniciais;i++){
-        adicionarMensagem(&mensagemAtual, fase_tutorial.mensagens_iniciais[i]);
+    for(int i=0;i<faseAtual.n_mensagens_iniciais;i++){
+        adicionarMensagem(&mensagemAtual, faseAtual.mensagens_iniciais[i]);
     }
 
-    //Cenario cenario = inicializarCenario();
-
-    int cena = CriaCena(fase_tutorial.cenario);
+    int cena = CriaCena(faseAtual.cenario);
     InsereTransicaoSprite(cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
     char mensagemFinal[50] = "";
@@ -728,9 +740,9 @@ int main( int argc, char* args[] ){
 
         TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
 
-        trataEventosFase(fase_tutorial, &mensagemAtual, fimJogo);
+        trataEventosTutorial(faseAtual, &mensagemAtual, fimJogo);
 
-        AtualizaPolicial(pol, fase_tutorial.cenario);
+        AtualizaPolicial(pol, faseAtual.cenario);
 
         AjustaCamera(pol);
 
@@ -743,44 +755,17 @@ int main( int argc, char* args[] ){
 
         //EliminaApagados(inimigos, NUM_INIMIGOS);
 
-        // Desenha os inimigos e o policial
-        int flag = 0;
-
-        qsort(inimigos, NUM_INIMIGOS, sizeof(Inimigo), ComparaPosicao);
-
-        for(int i=0;i<NUM_INIMIGOS;i++) {
-            if(inimigos[i].presente || (inimigos[i].nocauteado && TempoDecorrido(inimigos[i].timerAtacado) < 0.4)){
-                if(pol.y>inimigos[i].y && flag!=1){
-                    DesenhaPolicial(pol);
-                    flag = 1;
-                }
-                DesenhaAnimacao(inimigos[i].anima);
-            }
-        }
-        if(flag == 0){
-            DesenhaPolicial(pol);
-        }
+        desenhaPersonagens(inimigos,pol,NUM_INIMIGOS);
 
         //if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
 
-        if(mensagemAtual != NULL){ // Se ainda tiver mensagem na lista, exibe na tela
-            EscreverCentralizada(mensagemAtual->texto, 400, 50, AMARELO, fonte);
-        }
-        EscreverCentralizada(mensagemFinal, 400, 400, AMARELO);
+        escreveMensagem(mensagemAtual,fonte,mensagemFinal);
+
+        PreparaCameraFixa();
 
         EncerraDesenho();
 
-        if(fimJogo && mensagemAtual == NULL) {
-            IniciaAutomacaoSprite(cena);
-            IniciaAutomacaoAnimacao(pol.anima);
-            DespausaTimer(fadeTimer);
-            if (TempoDecorrido(fadeTimer) > 3)
-                strcpy(mensagemFinal, "Fim do Tutorial!");
-            if (TempoDecorrido(fadeTimer) > 10) {
-                break;
-                //FinalizaJogo();
-            }
-        }
+        if(fimTutorial(fimJogo,mensagemAtual,pol,cena, fadeTimer, mensagemFinal)) break;
     }
 
     //o jogo será encerrado

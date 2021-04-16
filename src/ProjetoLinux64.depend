@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
-1614538887 source:/home/matheus/Documentos/PigDev/src/main.cpp
-	<stdio.h>
+1618610094 source:/home/matheus/Documentos/PigDev/src/main.cpp
 	"PIG.h"
+	<stdio.h>
+	<string.h>
+	<time.h>
+	"cJSON.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/PIG.h
+1614724346 /home/matheus/Documentos/PigDev/include/PIG.h
 	"SDL.h"
 	"SDL_ttf.h"
 	"SDL_image.h"
@@ -21,6 +24,7 @@
 	"CPIGGerenciadorSockets.h"
 	"CPIGGerenciadorFontes.h"
 	"CPIGGerenciadorSprites.h"
+	"CPIGGerenciadorGDP.h"
 	"CPIGGerenciadorVideos.h"
 	"CPIGGerenciadorControles.h"
 	"CPIGGerenciadorForms.h"
@@ -388,11 +392,11 @@
 	"begin_code.h"
 	"close_code.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/PIGTipos.h
+1611954784 /home/matheus/Documentos/PigDev/include/PIGTipos.h
 	"direct.h"
 	"unistd.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/PIGFuncoesBasicas.h
+1613442762 /home/matheus/Documentos/PigDev/include/PIGFuncoesBasicas.h
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
@@ -412,94 +416,95 @@
 	<stdint.h>
 	<limits.h>
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGErros.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGErros.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGRepositorio.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGRepositorio.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorTimers.h
+1612394108 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorTimers.h
 	"CPIGTimer.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGTimer.h
+1612386866 /home/matheus/Documentos/PigDev/include/CPIGTimer.h
 	<chrono>
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGAssetLoader.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGAssetLoader.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGOffscreenRenderer.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGOffscreenRenderer.h
 	"CPIGPilhaCoordenada.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGPilhaCoordenada.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGPilhaCoordenada.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorAudios.h
+1612631986 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorAudios.h
 	"CPIGAudio.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGAudio.h
+1612632012 /home/matheus/Documentos/PigDev/include/CPIGAudio.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorJanelas.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorJanelas.h
 	"CPIGJanela.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGJanela.h
+1612314332 /home/matheus/Documentos/PigDev/include/CPIGJanela.h
 	"CPIGCamera.h"
 	"CPIGOffscreenRenderer.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGCamera.h
+1612210990 /home/matheus/Documentos/PigDev/include/CPIGCamera.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorSockets.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorSockets.h
 	"CPIGClienteTCP.h"
 	"CPIGServidorTCP.h"
 	"CPIGSocketUDP.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGClienteTCP.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGClienteTCP.h
 	"CPIGSocketTCP.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGSocketTCP.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGSocketTCP.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGServidorTCP.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGServidorTCP.h
 	"CPIGSocketTCP.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGSocketUDP.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGSocketUDP.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorFontes.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorFontes.h
 	"CPIGMapaCaracteres.h"
 	"CPIGMapaCaracteresDinamicos.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteres.h
+1612187188 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteres.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteresDinamicos.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteresDinamicos.h
 	"CPIGStringFormatada.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGStringFormatada.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGStringFormatada.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorSprites.h
+1613493542 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorSprites.h
 	"CPIGSprite.h"
 	"CPIGObjeto.h"
 	"CPIGAnimacao.h"
-	"CPIGGeradorParticulas.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGSprite.h
+1613623336 /home/matheus/Documentos/PigDev/include/CPIGSprite.h
 	"CPIGAutomacao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGAutomacao.h
+1614738202 /home/matheus/Documentos/PigDev/include/CPIGAutomacao.h
 	"CPIGTransicao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGTransicao.h
+1613175914 /home/matheus/Documentos/PigDev/include/CPIGTransicao.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGObjeto.h
+1613486494 /home/matheus/Documentos/PigDev/include/CPIGObjeto.h
+	"CPIGAtributos.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGAnimacao.h
+1614724346 /home/matheus/Documentos/PigDev/include/CPIGAnimacao.h
 	"CPIGModoAnimacao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGModoAnimacao.h
+1614724434 /home/matheus/Documentos/PigDev/include/CPIGModoAnimacao.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGeradorParticulas.h
+1613488720 /home/matheus/Documentos/PigDev/include/CPIGGeradorParticulas.h
 	"CPIGParticula.h"
+	"CPIGAnimacao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGParticula.h
-	"CPIGObjeto.h"
+1613490324 /home/matheus/Documentos/PigDev/include/CPIGParticula.h
+	"CPIGAnimacao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorVideos.h
+1612314280 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorVideos.h
 	"CPIGVideo.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGVideo.h
+1613493672 /home/matheus/Documentos/PigDev/include/CPIGVideo.h
 	<libavfilter/avfilter.h>
 	<libavformat/avformat.h>
 	<libavcodec/avcodec.h>
@@ -734,17 +739,17 @@
 1612304620 /home/matheus/Documentos/PigDev/include/video/libswscale/version.h
 	"libavutil/version.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGFilaPacotes.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGFilaPacotes.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorControles.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorControles.h
 	"CPIGControle.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGControle.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGControle.h
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorForms.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorForms.h
 	"CPIGForm.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGForm.h
+1613660004 /home/matheus/Documentos/PigDev/include/CPIGForm.h
 	"CPIGComponente.h"
 	"CPIGBotao.h"
 	"CPIGScrollBar.h"
@@ -757,55 +762,79 @@
 	"CPIGGauge.h"
 	"CPIGGaugeCircular.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGComponente.h
+1613625656 /home/matheus/Documentos/PigDev/include/CPIGComponente.h
 	"CPIGLabel.h"
 	"CPIGMouse.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGLabel.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGLabel.h
 	"CPIGSprite.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGMouse.h
+1612112016 /home/matheus/Documentos/PigDev/include/CPIGMouse.h
 	"CPIGSprite.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGBotao.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGBotao.h
 	"CPIGComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGScrollBar.h
+1613660082 /home/matheus/Documentos/PigDev/include/CPIGScrollBar.h
 	"CPIGComponente.h"
 	"CPIGBotao.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGCampoTextoESenha.h
+1611759206 /home/matheus/Documentos/PigDev/include/CPIGCampoTextoESenha.h
 	"CPIGCaixaTexto.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGCaixaTexto.h
+1613625540 /home/matheus/Documentos/PigDev/include/CPIGCaixaTexto.h
 	"CPIGComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGAreaDeTexto.h
+1613625636 /home/matheus/Documentos/PigDev/include/CPIGAreaDeTexto.h
 	"CPIGCaixaTexto.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGRadioBox.h
+1613625202 /home/matheus/Documentos/PigDev/include/CPIGRadioBox.h
 	"CPIGListaItemComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGListaItemComponente.h
+1613625414 /home/matheus/Documentos/PigDev/include/CPIGListaItemComponente.h
 	"CPIGItemComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGItemComponente.h
+1613626622 /home/matheus/Documentos/PigDev/include/CPIGItemComponente.h
 	"CPIGSprite.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGCheckBox.h
+1613625186 /home/matheus/Documentos/PigDev/include/CPIGCheckBox.h
 	"CPIGListaItemComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGListBox.h
+1613625668 /home/matheus/Documentos/PigDev/include/CPIGListBox.h
 	"CPIGListaItemComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGDropDown.h
+1613626744 /home/matheus/Documentos/PigDev/include/CPIGDropDown.h
 	"CPIGListaItemComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGauge.h
+1611882742 /home/matheus/Documentos/PigDev/include/CPIGGauge.h
 	"CPIGComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGGaugeCircular.h
+1611882814 /home/matheus/Documentos/PigDev/include/CPIGGaugeCircular.h
 	"CPIGComponente.h"
 
-1612304620 /home/matheus/Documentos/PigDev/include/CPIGJogo.h
+1613442932 /home/matheus/Documentos/PigDev/include/CPIGJogo.h
+	"CPIGAtributos.h"
+
+1609382290 source:/home/matheus/Documentos/PigDev/cJSON/cJSON.c
+	<string.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<limits.h>
+	<ctype.h>
+	<float.h>
+	<locale.h>
+	"cJSON.h"
+
+1609382290 /home/matheus/Documentos/PigDev/cJSON/cJSON.h
+	<stddef.h>
+
+1613441308 /home/matheus/Documentos/PigDev/include/CPIGAtributos.h
+
+1613412972 /home/matheus/Documentos/PigDev/include/CPIGGerenciadorGDP.h
+	"CPIGAnimacao.h"
+	"CPIGGeradorParticulas.h"
+
+1609382290 /home/matheus/Documentos/PigDev/src/cJSON.h
+	<stddef.h>
 
