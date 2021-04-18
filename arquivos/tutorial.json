@@ -1,6 +1,7 @@
 {
     "cenario" : {
         "nomeArq" : "cenario_delegacia_pol.png",
+        "sobreposto" : "",
         "minX" : 170,
         "minY" : 130,
         "maxX" : 550,

@@ -124,6 +124,8 @@ void passarMensagem(Mensagem **ini){
 typedef struct {
     char* nomeArq; // Nome do arquivo de fundo
 
+    char * sobreposicao;
+
     int minX, minY, maxX, maxY; // Limites onde o personagem pode andar no cenário
 
     int largura, altura; // Largura e altura do cenário
@@ -410,15 +412,15 @@ int testaColisaoInimigos(Policial pol, Inimigo inimigos[]) {
 
 
 // Função para criação da cena
-int CriaCena(Cenario cenario){
+int CriaCena(char* nomeArq, int altura, int largura){
 
     // Concatena o caminho da pasta de imagens com o nome do arquivo do cenário atual
-    char* local = (char*)malloc(80*sizeof(char));
+    char* local = (char*)malloc((13+strlen(nomeArq))*sizeof(char));
     strcpy(local, "..//imagens//");
-    strcat(local, cenario.nomeArq);
+    strcat(local, nomeArq);
 
     int resp = CriaSprite(local,0);
-    SetDimensoesSprite(resp,cenario.altura,cenario.largura);
+    SetDimensoesSprite(resp,altura,largura);
     return resp;
 }
 
@@ -548,9 +550,13 @@ Fase carregarFaseJSON(char* arquivoJson){
 
     Cenario cenario;
 
-    cenario.nomeArq = (char*)malloc(62*sizeof(char));
+    cenario.nomeArq = (char*)malloc(strlen(cJSON_GetObjectItemCaseSensitive(jsonCenario, "nomeArq")->valuestring)*sizeof(char));
     strcpy(cenario.nomeArq,
         cJSON_GetObjectItemCaseSensitive(jsonCenario, "nomeArq")->valuestring);
+
+    cenario.sobreposicao = (char*)malloc(strlen(cJSON_GetObjectItemCaseSensitive(jsonCenario, "sobreposto")->valuestring)*sizeof(char));
+    strcpy(cenario.sobreposicao,
+        cJSON_GetObjectItemCaseSensitive(jsonCenario, "sobreposto")->valuestring);
 
     cenario.minX = cJSON_GetObjectItemCaseSensitive(jsonCenario, "minX")->valueint;
     cenario.minY = cJSON_GetObjectItemCaseSensitive(jsonCenario, "minY")->valueint;
@@ -590,6 +596,10 @@ Fase carregarFaseJSON(char* arquivoJson){
 
 Fase carregarTutorialJSON(){
     return carregarFaseJSON("..//arquivos//tutorial.json");
+}
+
+Fase carregaRuaJSON(){
+    return carregarFaseJSON("..//arquivos//rua.json");
 }
 
 void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
@@ -713,7 +723,7 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
 
-    Fase faseAtual = carregarTutorialJSON();//iniciarTutorial();//
+    Fase faseAtual = carregaRuaJSON();//carregarTutorialJSON();//
 
     NUM_INIMIGOS = faseAtual.n_inimigos;
 
@@ -726,8 +736,10 @@ int main( int argc, char* args[] ){
         adicionarMensagem(&mensagemAtual, faseAtual.mensagens_iniciais[i]);
     }
 
-    int cena = CriaCena(faseAtual.cenario);
+    int cena = CriaCena(faseAtual.cenario.nomeArq, faseAtual.cenario.altura, faseAtual.cenario.largura);
     InsereTransicaoSprite(cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+
+    int sobreposto = CriaCena(faseAtual.cenario.sobreposicao, faseAtual.cenario.altura, faseAtual.cenario.largura);
 
     char mensagemFinal[50] = "";
 
@@ -740,7 +752,7 @@ int main( int argc, char* args[] ){
 
         TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
 
-        trataEventosTutorial(faseAtual, &mensagemAtual, fimJogo);
+        //trataEventosTutorial(faseAtual, &mensagemAtual, fimJogo);
 
         AtualizaPolicial(pol, faseAtual.cenario);
 
@@ -759,9 +771,11 @@ int main( int argc, char* args[] ){
 
         //if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
 
+        DesenhaCenario(sobreposto);
+
         escreveMensagem(mensagemAtual,fonte,mensagemFinal);
 
-        PreparaCameraFixa();
+        //PreparaCameraFixa();
 
         EncerraDesenho();
 
@@ -773,5 +787,3 @@ int main( int argc, char* args[] ){
 
     return 0;
 }
-
-

@@ -1,0 +1,18 @@
+{
+    "cenario" : {
+        "nomeArq" : "cenario_rua.png",
+        "sobreposto" : "cenario_cidade_superior.png",
+        "minX" : 230,
+        "minY" : 300,
+        "maxX" : 3300,
+        "maxY" : 540,
+        "largura" : 3647,
+        "altura" : 800
+    },
+    "inimigos" : [
+        
+    ],
+    "mensagensIniciais" : [
+        
+    ]
+}
