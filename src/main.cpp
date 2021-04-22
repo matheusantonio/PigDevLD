@@ -20,6 +20,10 @@ PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
 #define FOLGATELAX 200
 #define FOLGATELAY 100
 
+// DEFINES das fases
+#define FASE_TUTORIAL 0
+#define FASE_RUA 1
+#define FASE_BECO 2
 
 
 // Quantidade de inimigos no cenário
@@ -60,8 +64,11 @@ typedef struct {
     int n_mensagem_interacao; // Quantidade de mensagens de interação
     int n_mensagem_atacado; // Quantidade de mensagens de ataque
 
+    int atacavel;
+
     int presente;
     int nocauteado; // faz o azul aparecer quando essa variavel do vermelho for 1
+    int interagido;
     int hp;
 
 } Inimigo;
@@ -126,6 +133,9 @@ typedef struct {
 
     char * sobreposicao;
 
+    int cena;
+    int sobreposto;
+
     int minX, minY, maxX, maxY; // Limites onde o personagem pode andar no cenário
 
     int largura, altura; // Largura e altura do cenário
@@ -139,6 +149,7 @@ typedef struct {
 */
 typedef struct {
     Inimigo *inimigos;
+    int idFase;
     int n_inimigos;
     Cenario cenario;
 
@@ -286,6 +297,7 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
 
     // Função testa se o ataque acertou algum inimigo
     int inimigoAtingido = testaColisaoInimigos(pol, inimigos);
+    if(!inimigos[inimigoAtingido].atacavel) return;
     if(inimigoAtingido != -1){
         SetColoracaoAnimacao(inimigos[inimigoAtingido].anima, VERMELHO);
         modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
@@ -308,6 +320,7 @@ void Interacao(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
     int inimigoInteracao = testaColisaoInimigos(pol, inimigos);
     if(inimigoInteracao != -1){
         // Caso algum inimigo esteja no alcance, as mensagens dele são adicionadas à lista de mensagens
+        inimigos[inimigoInteracao].interagido = 1;
         adicionarMensagens(mensagemAtual, inimigos[inimigoInteracao].mensagem_interacao, inimigos[inimigoInteracao].n_mensagem_interacao);
     }
 }
@@ -512,6 +525,8 @@ Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
     inimigo.presente = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "iniciaPresente")->valueint;
     inimigo.hp = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "hp")->valueint;
     inimigo.nocauteado = 0;
+    inimigo.atacavel = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "atacavel")->valueint;
+    inimigo.interagido = 0;
 
     cJSON * jsonMensagensAtacado = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "mensagensAtacado");
 
@@ -541,12 +556,25 @@ Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
 /*
  * Função responsável por instanciar todos os elementos da fase tutorial, como cenário e inimigos.
  */
-Fase carregarFaseJSON(char* arquivoJson){
+
+void limparFase(Fase &fase){
+
+    free(fase.inimigos);
+    free(fase.mensagens_iniciais);
+
+}
+
+
+Fase carregarFaseJSON(char* arquivoJson, Policial &pol){
 
     const char * jsonTutorial = lerArquivoJSON(arquivoJson);
     cJSON *tutorial_json = cJSON_Parse(jsonTutorial);
 
     cJSON *jsonCenario = cJSON_GetObjectItemCaseSensitive(tutorial_json, "cenario");
+
+    pol.x = cJSON_GetObjectItemCaseSensitive(jsonCenario, "xInicial")->valueint;
+    pol.y = cJSON_GetObjectItemCaseSensitive(jsonCenario, "yInicial")->valueint;
+    MoveAnimacao(pol.anima, pol.x, pol.y);
 
     Cenario cenario;
 
@@ -571,6 +599,7 @@ Fase carregarFaseJSON(char* arquivoJson){
     Fase fase;
 
     fase.n_inimigos = cJSON_GetArraySize(jsonInimigos);
+    fase.inimigos = NULL;
     fase.inimigos = (Inimigo*)malloc(fase.n_inimigos*sizeof(Inimigo));
 
     for(int i=0;i<fase.n_inimigos;i++){
@@ -582,6 +611,7 @@ Fase carregarFaseJSON(char* arquivoJson){
     cJSON *jsonMensagens = cJSON_GetObjectItemCaseSensitive(tutorial_json, "mensagensIniciais");
 
     fase.n_mensagens_iniciais = cJSON_GetArraySize(jsonMensagens);
+    fase.mensagens_iniciais = NULL;
     fase.mensagens_iniciais = (char**)malloc(fase.n_mensagens_iniciais*sizeof(char*));
 
     for(int i=0;i<fase.n_mensagens_iniciais;i++){
@@ -589,17 +619,32 @@ Fase carregarFaseJSON(char* arquivoJson){
         strcpy(fase.mensagens_iniciais[i], cJSON_GetArrayItem(jsonMensagens, i)->valuestring);
     }
 
+
+
+
+
     return fase;
 
 
 }
 
-Fase carregarTutorialJSON(){
-    return carregarFaseJSON("..//arquivos//tutorial.json");
+Fase carregarTutorialJSON(Policial &pol){
+    Fase faseTutorial = carregarFaseJSON("..//arquivos//tutorial.json", pol);
+    faseTutorial.idFase = FASE_TUTORIAL;
+    return faseTutorial;
+
 }
 
-Fase carregaRuaJSON(){
-    return carregarFaseJSON("..//arquivos//rua.json");
+Fase carregaRuaJSON(Policial &pol){
+    Fase faseRua = carregarFaseJSON("..//arquivos//rua.json", pol);
+    faseRua.idFase = FASE_RUA;
+    return faseRua;
+}
+
+Fase carregaBecoJSON(Policial &pol){
+    Fase faseBeco = carregarFaseJSON("..//arquivos//beco.json", pol);
+    faseBeco.idFase = FASE_BECO;
+    return faseBeco;
 }
 
 void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
@@ -613,11 +658,14 @@ void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
     }
 }
 
+
+
+
 /*
  * Função que trata de eventos de transição da fase,
  * como o surgimento de inimigos e verificação de fase completada.
  */
-void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo){
+void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
 
     const int ID_INIMIGO_RUIM = 0;
     const int ID_INIMIGO_BOM = 1;
@@ -657,6 +705,53 @@ void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo){
     }
 }
 
+void trataEventosRua(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
+
+    const int ID_POLICIAL = 0;
+
+    if(fase.inimigos[ID_POLICIAL].interagido && *mensagem == NULL){
+
+        //limparFase(fase);
+
+        Fase novaFase = carregaBecoJSON(pol);
+        novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
+        InsereTransicaoSprite(novaFase.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+
+        novaFase.cenario.sobreposto = CriaCena(novaFase.cenario.sobreposicao, novaFase.cenario.altura, novaFase.cenario.largura);
+
+        fase = novaFase;
+    }
+
+}
+
+void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
+
+    const int ID_POLICIAL = 0;
+
+    if(fase.inimigos[ID_POLICIAL].interagido && *mensagem == NULL){
+
+        printf("Teste");
+
+        fimJogo = 1;
+    }
+
+}
+
+
+void trataEventosFases(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
+    switch(fase.idFase){
+        case FASE_TUTORIAL:
+            trataEventosTutorial(fase, mensagem, fimJogo, pol);
+            break;
+        case FASE_RUA:
+            trataEventosRua(fase, mensagem, fimJogo, pol);
+            break;
+        case FASE_BECO:
+            trataEventosBeco(fase, mensagem, fimJogo, pol);
+            break;
+    }
+}
+
 // Função que desenha os inimigos e o policial.
 void desenhaPersonagens(Inimigo inimigos[], Policial &pol, int &qtdInimigos){
 
@@ -689,7 +784,7 @@ int fimTutorial(int fimJogo, Mensagem *mensagemAtual, Policial &pol,int cena, in
             IniciaAutomacaoAnimacao(pol.anima);
             DespausaTimer(fadeTimer);
             if (TempoDecorrido(fadeTimer) > 3)
-                strcpy(mensagemFinal, "Fim do Tutorial!");
+                strcpy(mensagemFinal, "Fim do Jogo!");
             if (TempoDecorrido(fadeTimer) > 10)
                 return 1;
     }
@@ -699,10 +794,13 @@ int fimTutorial(int fimJogo, Mensagem *mensagemAtual, Policial &pol,int cena, in
 // Função que escreve as mensagens na tela
 void escreveMensagem(Mensagem *mensagemAtual,int fonte,char mensagemFinal[]){
 
+    int x, y;
+    GetXYCamera(&x,&y);
+
     if(mensagemAtual != NULL){ // Se ainda tiver mensagem na lista, exibe na tela
-        EscreverCentralizada(mensagemAtual->texto, 400, 50, AMARELO, fonte);
+        EscreverCentralizada(mensagemAtual->texto, x+400, 50, AMARELO, fonte);
     }
-    EscreverCentralizada(mensagemFinal, 400, 400, AMARELO);
+    EscreverCentralizada(mensagemFinal, x+400, 400, AMARELO);
 }
 
 // Função principal
@@ -723,7 +821,7 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
 
-    Fase faseAtual = carregaRuaJSON();//carregarTutorialJSON();//
+    Fase faseAtual = carregaRuaJSON(pol);//carregaBecoJSON(pol);//carregarTutorialJSON(pol);//
 
     NUM_INIMIGOS = faseAtual.n_inimigos;
 
@@ -736,10 +834,10 @@ int main( int argc, char* args[] ){
         adicionarMensagem(&mensagemAtual, faseAtual.mensagens_iniciais[i]);
     }
 
-    int cena = CriaCena(faseAtual.cenario.nomeArq, faseAtual.cenario.altura, faseAtual.cenario.largura);
-    InsereTransicaoSprite(cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+    faseAtual.cenario.cena = CriaCena(faseAtual.cenario.nomeArq, faseAtual.cenario.altura, faseAtual.cenario.largura);
+    InsereTransicaoSprite(faseAtual.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
-    int sobreposto = CriaCena(faseAtual.cenario.sobreposicao, faseAtual.cenario.altura, faseAtual.cenario.largura);
+    faseAtual.cenario.sobreposto = CriaCena(faseAtual.cenario.sobreposicao, faseAtual.cenario.altura, faseAtual.cenario.largura);
 
     char mensagemFinal[50] = "";
 
@@ -752,18 +850,18 @@ int main( int argc, char* args[] ){
 
         TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
 
-        //trataEventosTutorial(faseAtual, &mensagemAtual, fimJogo);
+        trataEventosFases(faseAtual, &mensagemAtual, fimJogo, pol);
 
         AtualizaPolicial(pol, faseAtual.cenario);
 
         AjustaCamera(pol);
 
-        TrataAutomacaoSprite(cena);
+        TrataAutomacaoSprite(faseAtual.cenario.cena);
         TrataAutomacaoAnimacao(pol.anima);
 
         IniciaDesenho();
 
-        DesenhaCenario(cena);
+        DesenhaCenario(faseAtual.cenario.cena);
 
         //EliminaApagados(inimigos, NUM_INIMIGOS);
 
@@ -771,7 +869,7 @@ int main( int argc, char* args[] ){
 
         //if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
 
-        DesenhaCenario(sobreposto);
+        DesenhaCenario(faseAtual.cenario.sobreposto);
 
         escreveMensagem(mensagemAtual,fonte,mensagemFinal);
 
@@ -779,7 +877,7 @@ int main( int argc, char* args[] ){
 
         EncerraDesenho();
 
-        if(fimTutorial(fimJogo,mensagemAtual,pol,cena, fadeTimer, mensagemFinal)) break;
+        if(fimTutorial(fimJogo,mensagemAtual,pol,faseAtual.cenario.cena, fadeTimer, mensagemFinal)) break;
     }
 
     //o jogo será encerrado
@@ -787,3 +885,5 @@ int main( int argc, char* args[] ){
 
     return 0;
 }
+
+

@@ -1,15 +1,15 @@
 {
     "cenario" : {
-        "nomeArq" : "cenario_rua.png",
-        "sobreposto" : "cenario_cidade_superior.png",
-        "minX" : 250,
-        "minY" : 100,
-        "maxX" : 3300,
-        "maxY" : 340,
-        "largura" : 3647,
+        "nomeArq" : "cenario_beco.png",
+        "sobreposto" : "cenario_beco_superior.png",
+        "minX" : 0,
+        "minY" : 5,
+        "maxX" : 750,
+        "maxY" : 250,
+        "largura" : 800,
         "altura" : 600,
-        "xInicial": 300,
-        "yInicial": 300
+        "xInicial": 50,
+        "yInicial": 100
     },
     "inimigos" : [
         {
@@ -23,8 +23,8 @@
             "modLargura" : 1.05,
             
             
-            "xInicial" : 500,
-            "yInicial" : 120,
+            "xInicial" : 700,
+            "yInicial" : 200,
             
             
             "linhasFrame" : 4,
@@ -43,10 +43,9 @@
             ],
             "mensagensAtacado" : [],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Sou o policial instrutor do beco"
             ]
         }
-        
     ],
     "mensagensIniciais" : [
         

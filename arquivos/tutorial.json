@@ -1,19 +1,22 @@
 {
     "cenario" : {
         "nomeArq" : "cenario_delegacia_pol.png",
-        "sobreposto" : "",
+        "sobreposto" : "cenario_delegacia_pol_superior.png",
         "minX" : 170,
         "minY" : 130,
         "maxX" : 550,
         "maxY" : 393,
         "largura" : 800,
-        "altura" : 600
+        "altura" : 600,
+        "xInicial": 600,
+        "yInicial": 600
     },
     "inimigos" : [
         {
             "nomeArq" : "..//imagens//boneco_ruim.png",
             "gravidadeCrime" : 2,
             "iniciaPresente" : 1,
+            "atacavel" : 1,
             "hp" : 3,
             "modAltura" : 1.05,
             "modLargura" : 1.05,
@@ -53,6 +56,7 @@
             "nomeArq" : "..//imagens//boneco_bom.png",
             "gravidadeCrime" : -2,
             "iniciaPresente" : 0,
+            "atacavel" : 1,
             "hp" : 3,
             "modAltura" : 1.05,
             "modLargura" : 1.05,
@@ -87,6 +91,40 @@
             "mensagensInteracao" : [
                 "- Droga! Acabei de voltar de uma entrevista de emprego e fui reprovado.",
                 "- Talvez eles não tenham gostado quando eu falei que morava em um bairro pobre."
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//policial_instrutor.png",
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 0,
+            "atacavel" : 0,
+            "hp" : 3,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 300,
+            "yInicial" : 200,
+            
+            
+            "linhasFrame" : 4,
+            "colunasFrame" : 3,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 8,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Sou o policial instrutor"
             ]
         }
     ],
