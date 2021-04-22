@@ -1,7 +1,7 @@
 {
     "cenario" : {
-        "nomeArq" : "cenario_delegacia_pol.png",
-        "sobreposto" : "cenario_delegacia_pol_superior.png",
+        "nomeArq" : "cenario_delegacia.png",
+        "sobreposto" : "cenario_delegacia_superior.png",
         "minX" : 170,
         "minY" : 130,
         "maxX" : 550,
@@ -9,11 +9,12 @@
         "largura" : 800,
         "altura" : 600,
         "xInicial": 600,
-        "yInicial": 600
+        "yInicial": 250
     },
     "inimigos" : [
         {
             "nomeArq" : "..//imagens//boneco_ruim.png",
+            "id" : 0,
             "gravidadeCrime" : 2,
             "iniciaPresente" : 1,
             "atacavel" : 1,
@@ -54,6 +55,7 @@
         },
         {
             "nomeArq" : "..//imagens//boneco_bom.png",
+            "id" : 1,
             "gravidadeCrime" : -2,
             "iniciaPresente" : 0,
             "atacavel" : 1,
@@ -95,8 +97,9 @@
         },
         {
             "nomeArq" : "..//imagens//policial_instrutor.png",
+            "id" : 2,
             "gravidadeCrime" : 0,
-            "iniciaPresente" : 0,
+            "iniciaPresente" : 1,
             "atacavel" : 0,
             "hp" : 3,
             
@@ -104,8 +107,8 @@
             "modLargura" : 1.05,
             
             
-            "xInicial" : 300,
-            "yInicial" : 200,
+            "xInicial" : 200,
+            "yInicial" : 250,
             
             
             "linhasFrame" : 4,
@@ -124,7 +127,7 @@
             ],
             "mensagensAtacado" : [],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Sou o policial instrutor do tutorial"
             ]
         }
     ],

@@ -14,6 +14,7 @@
     "inimigos" : [
         {
             "nomeArq" : "..//imagens//policial_instrutor.png",
+            "id" : 0,
             "gravidadeCrime" : 0,
             "iniciaPresente" : 1,
             "atacavel" : 0,

@@ -25,10 +25,6 @@ PIG_Teclado meuTeclado;     //variável como mapeamento do teclado
 #define FASE_RUA 1
 #define FASE_BECO 2
 
-
-// Quantidade de inimigos no cenário
-int NUM_INIMIGOS;
-
 // Quantidade máxima de caracteres de uma mensagem que pode ser exibida
 #define MAX_TEXT_SIZE 150
 
@@ -160,7 +156,7 @@ typedef struct {
 
 // Protótipo da função que testa a colisão com os inimigos.
 // Função está sendo implementada mais abaixo.
-int testaColisaoInimigos(Policial pol, Inimigo inimigos[]);
+int testaColisaoInimigos(Policial pol, Inimigo inimigos[], int numInimigos);
 
 // Faz o tratamento do estado do policial entre andar e atacar.
 void MudaAcao(Policial &pol,int acao){
@@ -191,7 +187,9 @@ void iniciaReputacao(Policial &pol){
 
     srand(time(NULL));
     // Valor ainda a ser ajustado
-    pol.reputacao += rand() % 50 + 20;
+    pol.reputacao = rand() % 51 + 50;
+
+    printf("Inicial: %d\n", pol.reputacao);
 
 }
 
@@ -292,16 +290,16 @@ void modificaReputacao(Policial &pol, int gravidade_crime){
  * Função que trata o ataque do policial, verificando sua interação com os inimigos
  * e modificando o estado de ambos, alem de acionar as mensagens do sistema e falas.
  */
-void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
+void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual, int numInimigos){
     MudaAcao(pol,ATACANDO);
 
     // Função testa se o ataque acertou algum inimigo
-    int inimigoAtingido = testaColisaoInimigos(pol, inimigos);
+    int inimigoAtingido = testaColisaoInimigos(pol, inimigos, numInimigos);
     if(!inimigos[inimigoAtingido].atacavel) return;
     if(inimigoAtingido != -1){
         SetColoracaoAnimacao(inimigos[inimigoAtingido].anima, VERMELHO);
         modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
-        //printf("\n%d",pol.reputacao);
+        printf("%d\n",pol.reputacao);
         inimigos[inimigoAtingido].hp --;
         if(inimigos[inimigoAtingido].hp == 0){
             inimigos[inimigoAtingido].nocauteado = 1;
@@ -314,10 +312,10 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
 }
 
 // Função de testa a interação do policia.l
-void Interacao(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
+void Interacao(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual, int numInimigos){
 
     // Função testa se a interação foi feita com algum inimigo
-    int inimigoInteracao = testaColisaoInimigos(pol, inimigos);
+    int inimigoInteracao = testaColisaoInimigos(pol, inimigos, numInimigos);
     if(inimigoInteracao != -1){
         // Caso algum inimigo esteja no alcance, as mensagens dele são adicionadas à lista de mensagens
         inimigos[inimigoInteracao].interagido = 1;
@@ -326,7 +324,7 @@ void Interacao(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
 }
 
 // Função principal para tratar os eventos de teclado
-void TrataEventoTeclado(PIG_Evento ev,Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual){
+void TrataEventoTeclado(PIG_Evento ev,Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual, int numInimigos){
 
     // Caso a lista de mensagens não esteja vazia
     if(*mensagemAtual != NULL){
@@ -346,9 +344,9 @@ void TrataEventoTeclado(PIG_Evento ev,Policial &pol, Inimigo inimigos[], Mensage
     if(ev.tipoEvento == PIG_EVENTO_TECLADO && ev.teclado.acao == PIG_TECLA_PRESSIONADA){
        if(pol.estado == PARADO || pol.estado == ANDANDO){
             if(ev.teclado.tecla == PIG_TECLA_x)
-                Ataca(pol, inimigos, mensagemAtual);
+                Ataca(pol, inimigos, mensagemAtual, numInimigos);
             else if(ev.teclado.tecla == PIG_TECLA_z)
-                Interacao(pol, inimigos, mensagemAtual);
+                Interacao(pol, inimigos, mensagemAtual, numInimigos);
        }
     }
     else if (TempoDecorrido(pol.timerTeclado)>0.005){
@@ -404,11 +402,11 @@ void Direcao(Policial pol){
 }
 
 // Verifica se ocorreu colisão entre o policial e algum dos inimigos.
-int testaColisaoInimigos(Policial pol, Inimigo inimigos[]) {
+int testaColisaoInimigos(Policial pol, Inimigo inimigos[], int numInimigos) {
     // Essa função leva em consideração a direção do jogador, por exemplo, se ele estiver
     // de costas mas houver colisão, o ataque e a interação não funcionam.
     Direcao(pol);
-    for(int i=0;i<NUM_INIMIGOS;i++) {
+    for(int i=0;i<numInimigos;i++) {
         if(inimigos[i].presente &&
         TestaColisaoAnimacoes(pol.anima, inimigos[i].anima) &&
         TempoDecorrido(inimigos[i].timerAtacado)>1.0 ){
@@ -421,7 +419,6 @@ int testaColisaoInimigos(Policial pol, Inimigo inimigos[]) {
     return -1; // Caso não haja interação com ninguém, retorna -1
 
 }
-
 
 
 // Função para criação da cena
@@ -480,7 +477,7 @@ int ComparaPosicao(const void *p1, const void *p2){
 Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
 
     Inimigo inimigo;
-    inimigo.id_inimigo = pos;
+
 
     inimigo.anima = CriaAnimacao(cJSON_GetObjectItemCaseSensitive(jsonInimigo, "nomeArq")->valuestring, false);
 
@@ -526,6 +523,7 @@ Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
     inimigo.hp = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "hp")->valueint;
     inimigo.nocauteado = 0;
     inimigo.atacavel = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "atacavel")->valueint;
+    inimigo.id_inimigo = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "id")->valueint;;
     inimigo.interagido = 0;
 
     cJSON * jsonMensagensAtacado = cJSON_GetObjectItemCaseSensitive(jsonInimigo, "mensagensAtacado");
@@ -619,13 +617,7 @@ Fase carregarFaseJSON(char* arquivoJson, Policial &pol){
         strcpy(fase.mensagens_iniciais[i], cJSON_GetArrayItem(jsonMensagens, i)->valuestring);
     }
 
-
-
-
-
     return fase;
-
-
 }
 
 Fase carregarTutorialJSON(Policial &pol){
@@ -659,8 +651,6 @@ void EliminaApagados(Inimigo inimigos[],int &qtdInimigos){
 }
 
 
-
-
 /*
  * Função que trata de eventos de transição da fase,
  * como o surgimento de inimigos e verificação de fase completada.
@@ -669,12 +659,15 @@ void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo, Policia
 
     const int ID_INIMIGO_RUIM = 0;
     const int ID_INIMIGO_BOM = 1;
+    const int ID_POLICIAL = 2;
 
     Inimigo* inimigoBom;
     Inimigo* inimigoRuim;
+    Inimigo* inimigoPolicial;
 
     int flagBom = 0;
     int flagRuim = 0;
+    int flagPolicial = 0;
 
     for(int i=0;i<fase.n_inimigos;i++){
         if(fase.inimigos[i].id_inimigo == ID_INIMIGO_BOM){
@@ -687,7 +680,12 @@ void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo, Policia
             flagRuim = 1;
             continue;
         }
-        if(flagBom && flagRuim) break;
+        if(fase.inimigos[i].id_inimigo == ID_POLICIAL){
+            inimigoPolicial = &(fase.inimigos[i]);
+            flagPolicial = 1;
+            continue;
+        }
+        if(flagBom && flagRuim && flagPolicial) break;
     }
 
     if(TempoDecorrido(inimigoRuim->timerAtacado) > 0.4) {
@@ -700,8 +698,23 @@ void trataEventosTutorial(Fase &fase, Mensagem **mensagem, int &fimJogo, Policia
     if(inimigoRuim->hp == 0 && inimigoBom->hp > 0){
         inimigoBom->presente = 1;
     }
-    if(inimigoRuim->hp == 0 && inimigoBom->hp == 0){
-        fimJogo = 1;
+
+    if(inimigoPolicial->interagido == 1){
+
+        if(!(inimigoBom->hp == 0)){
+
+            inimigoPolicial->interagido = 0;
+
+        } else if(*mensagem == NULL) {
+
+            Fase novaFase = carregaRuaJSON(pol);
+            novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
+            InsereTransicaoSprite(novaFase.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+
+            novaFase.cenario.sobreposto = CriaCena(novaFase.cenario.sobreposicao, novaFase.cenario.altura, novaFase.cenario.largura);
+
+            fase = novaFase;
+        }
     }
 }
 
@@ -709,9 +722,27 @@ void trataEventosRua(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &po
 
     const int ID_POLICIAL = 0;
 
-    if(fase.inimigos[ID_POLICIAL].interagido && *mensagem == NULL){
+    Inimigo* inimigoPolicial;
 
-        //limparFase(fase);
+    int flagPolicial = 0;
+
+    for(int i=0;i<fase.n_inimigos;i++){
+        if(fase.inimigos[i].id_inimigo == ID_POLICIAL){
+            inimigoPolicial = &(fase.inimigos[i]);
+            flagPolicial = 1;
+            continue;
+        }
+        if(flagPolicial) break;
+    }
+
+    for(int i=0;i<fase.n_inimigos;i++){
+        if(TempoDecorrido(fase.inimigos[i].timerAtacado) > 0.4) {
+            SetColoracaoAnimacao(fase.inimigos[i].anima, BRANCO);
+        }
+    }
+
+
+    if(inimigoPolicial->interagido && *mensagem == NULL){
 
         Fase novaFase = carregaBecoJSON(pol);
         novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
@@ -728,9 +759,20 @@ void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &p
 
     const int ID_POLICIAL = 0;
 
-    if(fase.inimigos[ID_POLICIAL].interagido && *mensagem == NULL){
+    Inimigo* inimigoPolicial;
 
-        printf("Teste");
+    int flagPolicial = 0;
+
+    for(int i=0;i<fase.n_inimigos;i++){
+        if(fase.inimigos[i].id_inimigo == ID_POLICIAL){
+            inimigoPolicial = &(fase.inimigos[i]);
+            flagPolicial = 1;
+            continue;
+        }
+        if(flagPolicial) break;
+    }
+
+    if(inimigoPolicial->interagido && *mensagem == NULL){
 
         fimJogo = 1;
     }
@@ -757,9 +799,9 @@ void desenhaPersonagens(Inimigo inimigos[], Policial &pol, int &qtdInimigos){
 
         int flag = 0;
 
-        qsort(inimigos, NUM_INIMIGOS, sizeof(Inimigo), ComparaPosicao);
+        qsort(inimigos, qtdInimigos, sizeof(Inimigo), ComparaPosicao);
 
-        for(int i=0;i<NUM_INIMIGOS;i++) {
+        for(int i=0;i<qtdInimigos;i++) {
             if(inimigos[i].presente || (inimigos[i].nocauteado && TempoDecorrido(inimigos[i].timerAtacado) < 0.4)){
                 if(pol.y>inimigos[i].y && flag!=1){
                     DesenhaPolicial(pol);
@@ -821,11 +863,7 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
 
-    Fase faseAtual = carregaRuaJSON(pol);//carregaBecoJSON(pol);//carregarTutorialJSON(pol);//
-
-    NUM_INIMIGOS = faseAtual.n_inimigos;
-
-    Inimigo* inimigos = faseAtual.inimigos;
+    Fase faseAtual = carregaRuaJSON(pol);//carregarTutorialJSON(pol);//carregaBecoJSON(pol);//
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 
@@ -848,7 +886,7 @@ int main( int argc, char* args[] ){
 
         evento = GetEvento();
 
-        TrataEventoTeclado(evento,pol, inimigos, &mensagemAtual);
+        TrataEventoTeclado(evento,pol, faseAtual.inimigos, &mensagemAtual, faseAtual.n_inimigos);
 
         trataEventosFases(faseAtual, &mensagemAtual, fimJogo, pol);
 
@@ -865,9 +903,9 @@ int main( int argc, char* args[] ){
 
         //EliminaApagados(inimigos, NUM_INIMIGOS);
 
-        desenhaPersonagens(inimigos,pol,NUM_INIMIGOS);
+        desenhaPersonagens(faseAtual.inimigos,pol,faseAtual.n_inimigos);
 
-        //if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
+        if(!fimJogo) fimJogo = verificaReputacao(pol, &mensagemAtual);
 
         DesenhaCenario(faseAtual.cenario.sobreposto);
 
