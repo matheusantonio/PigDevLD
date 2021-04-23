@@ -280,10 +280,10 @@ void modificaReputacao(Policial &pol, int gravidade_crime){
 
     // Gerando a seed
     srand(time(NULL));
+    int piso= (gravidade_crime-1)*10+1; // 1*10 + 1 11 e 20 -49
+    int teto= gravidade_crime * 10; // 31 e 40 -40
+    pol.reputacao += rand() % (teto - piso + 1) + piso;
 
-    int piso= (gravidade_crime-1)*10+1;
-    int teto = gravidade_crime * 10;
-    pol.reputacao += rand() % teto + piso;
 }
 
 /*
@@ -298,8 +298,7 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual, int numI
     if(!inimigos[inimigoAtingido].atacavel) return;
     if(inimigoAtingido != -1){
         SetColoracaoAnimacao(inimigos[inimigoAtingido].anima, VERMELHO);
-        modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
-        printf("%d\n",pol.reputacao);
+        //modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
         inimigos[inimigoAtingido].hp --;
         if(inimigos[inimigoAtingido].hp == 0){
             inimigos[inimigoAtingido].nocauteado = 1;
@@ -863,7 +862,7 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
 
-    Fase faseAtual = carregaRuaJSON(pol);//carregarTutorialJSON(pol);//carregaBecoJSON(pol);//
+    Fase faseAtual = carregarTutorialJSON(pol);//carregaRuaJSON(pol);//carregaBecoJSON(pol);//
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 

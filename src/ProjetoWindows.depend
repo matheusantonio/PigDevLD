@@ -1,0 +1,1658 @@
+# depslib dependency file v1.0
+1615245691 source:c:\users\joao-\desktop\pigdev-master\src\main.cpp
+	"PIG.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\pig.h
+	"SDL.h"
+	"SDL_ttf.h"
+	"SDL_image.h"
+	"SDL_net.h"
+	"SDL_mixer.h"
+	"PIGTipos.h"
+	"PIGFuncoesBasicas.h"
+	"CPIGErros.h"
+	"CPIGRepositorio.h"
+	"CPIGGerenciadorTimers.h"
+	"CPIGAssetLoader.h"
+	"CPIGOffscreenRenderer.h"
+	"CPIGGerenciadorAudios.h"
+	"CPIGGerenciadorJanelas.h"
+	"CPIGGerenciadorSockets.h"
+	"CPIGGerenciadorFontes.h"
+	"CPIGGerenciadorSprites.h"
+	"CPIGGerenciadorGDP.h"
+	"CPIGGerenciadorVideos.h"
+	"CPIGGerenciadorControles.h"
+	"CPIGGerenciadorForms.h"
+	"CPIGJogo.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<sal.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_config.h
+	"SDL_platform.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\begin_code.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\close_code.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<mbarrier.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mm3dnow.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl_image\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_net.h
+	<stdint.h>
+	"SDL.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\sdl\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\pigtipos.h
+	"direct.h"
+	"unistd.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\pigfuncoesbasicas.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string>
+	<string.h>
+	<time.h>
+	<vector>
+	<map>
+	<iostream>
+	<dirent.h>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<algorithm>
+	<cmath>
+	<unordered_map>
+	<stdint.h>
+	<limits.h>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigerros.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigrepositorio.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadortimers.h
+	"CPIGTimer.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigtimer.h
+	<chrono>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigassetloader.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigoffscreenrenderer.h
+	"CPIGPilhaCoordenada.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigpilhacoordenada.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadoraudios.h
+	"CPIGAudio.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigaudio.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorjanelas.h
+	"CPIGJanela.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigjanela.h
+	"CPIGCamera.h"
+	"CPIGOffscreenRenderer.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcamera.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorsockets.h
+	"CPIGClienteTCP.h"
+	"CPIGServidorTCP.h"
+	"CPIGSocketUDP.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigclientetcp.h
+	"CPIGSocketTCP.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigsockettcp.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigservidortcp.h
+	"CPIGSocketTCP.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigsocketudp.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorfontes.h
+	"CPIGMapaCaracteres.h"
+	"CPIGMapaCaracteresDinamicos.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigmapacaracteres.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigmapacaracteresdinamicos.h
+	"CPIGStringFormatada.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigstringformatada.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorsprites.h
+	"CPIGSprite.h"
+	"CPIGObjeto.h"
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigsprite.h
+	"CPIGAutomacao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigautomacao.h
+	"CPIGTransicao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigtransicao.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigobjeto.h
+	"CPIGAtributos.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigatributos.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiganimacao.h
+	"CPIGModoAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigmodoanimacao.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorgdp.h
+	"CPIGAnimacao.h"
+	"CPIGGeradorParticulas.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggeradorparticulas.h
+	"CPIGParticula.h"
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigparticula.h
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorvideos.h
+	"CPIGVideo.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigvideo.h
+	<libavfilter/avfilter.h>
+	<libavformat/avformat.h>
+	<libavcodec/avcodec.h>
+	<libavdevice/avdevice.h>
+	<libavutil/imgutils.h>
+	<libavutil/avstring.h>
+	<libavutil/time.h>
+	<libswresample/swresample.h>
+	<libswscale/swscale.h>
+	"CPIGFilaPacotes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavfilter\avfilter.h
+	<stddef.h>
+	"libavutil/attributes.h"
+	"libavutil/avutil.h"
+	"libavutil/buffer.h"
+	"libavutil/dict.h"
+	"libavutil/frame.h"
+	"libavutil/log.h"
+	"libavutil/samplefmt.h"
+	"libavutil/pixfmt.h"
+	"libavutil/rational.h"
+	"libavfilter/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\attributes.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\avutil.h
+	"common.h"
+	"error.h"
+	"rational.h"
+	"version.h"
+	"macros.h"
+	"mathematics.h"
+	"log.h"
+	"pixfmt.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\common.h
+	<errno.h>
+	<inttypes.h>
+	<limits.h>
+	<math.h>
+	<stdint.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"attributes.h"
+	"macros.h"
+	"version.h"
+	"libavutil/avconfig.h"
+	"config.h"
+	"intmath.h"
+	"common.h"
+	"mem.h"
+	"internal.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\macros.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\version.h
+	"macros.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\avconfig.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\mem.h
+	<limits.h>
+	<stdint.h>
+	"attributes.h"
+	"error.h"
+	"avutil.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\error.h
+	<errno.h>
+	<stddef.h>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\rational.h
+	<stdint.h>
+	<limits.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\mathematics.h
+	<stdint.h>
+	<math.h>
+	"attributes.h"
+	"rational.h"
+	"intfloat.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\intfloat.h
+	<stdint.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\log.h
+	<stdarg.h>
+	"avutil.h"
+	"attributes.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\pixfmt.h
+	"libavutil/avconfig.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\buffer.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\dict.h
+	<stdint.h>
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\frame.h
+	<stddef.h>
+	<stdint.h>
+	"avutil.h"
+	"buffer.h"
+	"dict.h"
+	"rational.h"
+	"samplefmt.h"
+	"pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\samplefmt.h
+	<stdint.h>
+	"avutil.h"
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavfilter\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavformat\avformat.h
+	<time.h>
+	<stdio.h>
+	"libavcodec/avcodec.h"
+	"libavutil/dict.h"
+	"libavutil/log.h"
+	"avio.h"
+	"libavformat/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavcodec\avcodec.h
+	<errno.h>
+	"libavutil/samplefmt.h"
+	"libavutil/attributes.h"
+	"libavutil/avutil.h"
+	"libavutil/buffer.h"
+	"libavutil/cpu.h"
+	"libavutil/channel_layout.h"
+	"libavutil/dict.h"
+	"libavutil/frame.h"
+	"libavutil/hwcontext.h"
+	"libavutil/log.h"
+	"libavutil/pixfmt.h"
+	"libavutil/rational.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\cpu.h
+	<stddef.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\channel_layout.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\hwcontext.h
+	"buffer.h"
+	"frame.h"
+	"log.h"
+	"pixfmt.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavcodec\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavformat\avio.h
+	<stdint.h>
+	"libavutil/common.h"
+	"libavutil/dict.h"
+	"libavutil/log.h"
+	"libavformat/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavformat\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavdevice\avdevice.h
+	"version.h"
+	"libavutil/log.h"
+	"libavutil/opt.h"
+	"libavutil/dict.h"
+	"libavformat/avformat.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavdevice\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\opt.h
+	"rational.h"
+	"avutil.h"
+	"dict.h"
+	"log.h"
+	"pixfmt.h"
+	"samplefmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\imgutils.h
+	"avutil.h"
+	"pixdesc.h"
+	"rational.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\pixdesc.h
+	<inttypes.h>
+	"attributes.h"
+	"pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\avstring.h
+	<stddef.h>
+	<stdint.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libavutil\time.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libswresample\swresample.h
+	<stdint.h>
+	"libavutil/channel_layout.h"
+	"libavutil/frame.h"
+	"libavutil/samplefmt.h"
+	"libswresample/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libswresample\version.h
+	"libavutil/avutil.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libswscale\swscale.h
+	<stdint.h>
+	"libavutil/avutil.h"
+	"libavutil/log.h"
+	"libavutil/pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\video\libswscale\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigfilapacotes.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorcontroles.h
+	"CPIGControle.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcontrole.h
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggerenciadorforms.h
+	"CPIGForm.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigform.h
+	"CPIGComponente.h"
+	"CPIGBotao.h"
+	"CPIGScrollBar.h"
+	"CPIGCampoTextoESenha.h"
+	"CPIGAreaDeTexto.h"
+	"CPIGRadioBox.h"
+	"CPIGCheckBox.h"
+	"CPIGListBox.h"
+	"CPIGDropDown.h"
+	"CPIGGauge.h"
+	"CPIGGaugeCircular.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcomponente.h
+	"CPIGLabel.h"
+	"CPIGMouse.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiglabel.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigmouse.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigbotao.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigscrollbar.h
+	"CPIGComponente.h"
+	"CPIGBotao.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcampotextoesenha.h
+	"CPIGCaixaTexto.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcaixatexto.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigareadetexto.h
+	"CPIGCaixaTexto.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigradiobox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiglistaitemcomponente.h
+	"CPIGItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigitemcomponente.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigcheckbox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiglistbox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigdropdown.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggauge.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpiggaugecircular.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\pigdev-master\include\cpigjogo.h
+	"CPIGAtributos.h"
+
+1615668051 source:c:\users\joao-\desktop\pigdev-master\srcv\main.cpp
+	"PIG.h"
+
+1619203466 source:c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\src\main.cpp
+	"PIG.h"
+	<stdio.h>
+	<string.h>
+	<time.h>
+	"cJSON.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\pig.h
+	"SDL.h"
+	"SDL_ttf.h"
+	"SDL_image.h"
+	"SDL_net.h"
+	"SDL_mixer.h"
+	"PIGTipos.h"
+	"PIGFuncoesBasicas.h"
+	"CPIGErros.h"
+	"CPIGRepositorio.h"
+	"CPIGGerenciadorTimers.h"
+	"CPIGAssetLoader.h"
+	"CPIGOffscreenRenderer.h"
+	"CPIGGerenciadorAudios.h"
+	"CPIGGerenciadorJanelas.h"
+	"CPIGGerenciadorSockets.h"
+	"CPIGGerenciadorFontes.h"
+	"CPIGGerenciadorSprites.h"
+	"CPIGGerenciadorGDP.h"
+	"CPIGGerenciadorVideos.h"
+	"CPIGGerenciadorControles.h"
+	"CPIGGerenciadorForms.h"
+	"CPIGJogo.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<sal.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_config.h
+	"SDL_platform.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\begin_code.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\close_code.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<mbarrier.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mm3dnow.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl_image\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_net.h
+	<stdint.h>
+	"SDL.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\sdl\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\pigtipos.h
+	"direct.h"
+	"unistd.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\pigfuncoesbasicas.h
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<string>
+	<string.h>
+	<time.h>
+	<vector>
+	<map>
+	<iostream>
+	<dirent.h>
+	<fstream>
+	<sstream>
+	<iomanip>
+	<algorithm>
+	<cmath>
+	<unordered_map>
+	<stdint.h>
+	<limits.h>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigerros.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigrepositorio.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadortimers.h
+	"CPIGTimer.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigtimer.h
+	<chrono>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigassetloader.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigoffscreenrenderer.h
+	"CPIGPilhaCoordenada.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigpilhacoordenada.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadoraudios.h
+	"CPIGAudio.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigaudio.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorjanelas.h
+	"CPIGJanela.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigjanela.h
+	"CPIGCamera.h"
+	"CPIGOffscreenRenderer.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcamera.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorsockets.h
+	"CPIGClienteTCP.h"
+	"CPIGServidorTCP.h"
+	"CPIGSocketUDP.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigclientetcp.h
+	"CPIGSocketTCP.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigsockettcp.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigservidortcp.h
+	"CPIGSocketTCP.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigsocketudp.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorfontes.h
+	"CPIGMapaCaracteres.h"
+	"CPIGMapaCaracteresDinamicos.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigmapacaracteres.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigmapacaracteresdinamicos.h
+	"CPIGStringFormatada.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigstringformatada.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorsprites.h
+	"CPIGSprite.h"
+	"CPIGObjeto.h"
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigsprite.h
+	"CPIGAutomacao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigautomacao.h
+	"CPIGTransicao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigtransicao.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigobjeto.h
+	"CPIGAtributos.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigatributos.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiganimacao.h
+	"CPIGModoAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigmodoanimacao.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorgdp.h
+	"CPIGAnimacao.h"
+	"CPIGGeradorParticulas.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggeradorparticulas.h
+	"CPIGParticula.h"
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigparticula.h
+	"CPIGAnimacao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorvideos.h
+	"CPIGVideo.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigvideo.h
+	<libavfilter/avfilter.h>
+	<libavformat/avformat.h>
+	<libavcodec/avcodec.h>
+	<libavdevice/avdevice.h>
+	<libavutil/imgutils.h>
+	<libavutil/avstring.h>
+	<libavutil/time.h>
+	<libswresample/swresample.h>
+	<libswscale/swscale.h>
+	"CPIGFilaPacotes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavfilter\avfilter.h
+	<stddef.h>
+	"libavutil/attributes.h"
+	"libavutil/avutil.h"
+	"libavutil/buffer.h"
+	"libavutil/dict.h"
+	"libavutil/frame.h"
+	"libavutil/log.h"
+	"libavutil/samplefmt.h"
+	"libavutil/pixfmt.h"
+	"libavutil/rational.h"
+	"libavfilter/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\attributes.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\avutil.h
+	"common.h"
+	"error.h"
+	"rational.h"
+	"version.h"
+	"macros.h"
+	"mathematics.h"
+	"log.h"
+	"pixfmt.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\common.h
+	<errno.h>
+	<inttypes.h>
+	<limits.h>
+	<math.h>
+	<stdint.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"attributes.h"
+	"macros.h"
+	"version.h"
+	"libavutil/avconfig.h"
+	"config.h"
+	"intmath.h"
+	"common.h"
+	"mem.h"
+	"internal.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\macros.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\version.h
+	"macros.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\avconfig.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\mem.h
+	<limits.h>
+	<stdint.h>
+	"attributes.h"
+	"error.h"
+	"avutil.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\error.h
+	<errno.h>
+	<stddef.h>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\rational.h
+	<stdint.h>
+	<limits.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\mathematics.h
+	<stdint.h>
+	<math.h>
+	"attributes.h"
+	"rational.h"
+	"intfloat.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\intfloat.h
+	<stdint.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\log.h
+	<stdarg.h>
+	"avutil.h"
+	"attributes.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\pixfmt.h
+	"libavutil/avconfig.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\buffer.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\dict.h
+	<stdint.h>
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\frame.h
+	<stddef.h>
+	<stdint.h>
+	"avutil.h"
+	"buffer.h"
+	"dict.h"
+	"rational.h"
+	"samplefmt.h"
+	"pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\samplefmt.h
+	<stdint.h>
+	"avutil.h"
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavfilter\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavformat\avformat.h
+	<time.h>
+	<stdio.h>
+	"libavcodec/avcodec.h"
+	"libavutil/dict.h"
+	"libavutil/log.h"
+	"avio.h"
+	"libavformat/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavcodec\avcodec.h
+	<errno.h>
+	"libavutil/samplefmt.h"
+	"libavutil/attributes.h"
+	"libavutil/avutil.h"
+	"libavutil/buffer.h"
+	"libavutil/cpu.h"
+	"libavutil/channel_layout.h"
+	"libavutil/dict.h"
+	"libavutil/frame.h"
+	"libavutil/hwcontext.h"
+	"libavutil/log.h"
+	"libavutil/pixfmt.h"
+	"libavutil/rational.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\cpu.h
+	<stddef.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\channel_layout.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\hwcontext.h
+	"buffer.h"
+	"frame.h"
+	"log.h"
+	"pixfmt.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavcodec\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavformat\avio.h
+	<stdint.h>
+	"libavutil/common.h"
+	"libavutil/dict.h"
+	"libavutil/log.h"
+	"libavformat/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavformat\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavdevice\avdevice.h
+	"version.h"
+	"libavutil/log.h"
+	"libavutil/opt.h"
+	"libavutil/dict.h"
+	"libavformat/avformat.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavdevice\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\opt.h
+	"rational.h"
+	"avutil.h"
+	"dict.h"
+	"log.h"
+	"pixfmt.h"
+	"samplefmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\imgutils.h
+	"avutil.h"
+	"pixdesc.h"
+	"rational.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\pixdesc.h
+	<inttypes.h>
+	"attributes.h"
+	"pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\avstring.h
+	<stddef.h>
+	<stdint.h>
+	"attributes.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libavutil\time.h
+	<stdint.h>
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libswresample\swresample.h
+	<stdint.h>
+	"libavutil/channel_layout.h"
+	"libavutil/frame.h"
+	"libavutil/samplefmt.h"
+	"libswresample/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libswresample\version.h
+	"libavutil/avutil.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libswscale\swscale.h
+	<stdint.h>
+	"libavutil/avutil.h"
+	"libavutil/log.h"
+	"libavutil/pixfmt.h"
+	"version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\video\libswscale\version.h
+	"libavutil/version.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigfilapacotes.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorcontroles.h
+	"CPIGControle.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcontrole.h
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggerenciadorforms.h
+	"CPIGForm.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigform.h
+	"CPIGComponente.h"
+	"CPIGBotao.h"
+	"CPIGScrollBar.h"
+	"CPIGCampoTextoESenha.h"
+	"CPIGAreaDeTexto.h"
+	"CPIGRadioBox.h"
+	"CPIGCheckBox.h"
+	"CPIGListBox.h"
+	"CPIGDropDown.h"
+	"CPIGGauge.h"
+	"CPIGGaugeCircular.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcomponente.h
+	"CPIGLabel.h"
+	"CPIGMouse.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiglabel.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigmouse.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigbotao.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigscrollbar.h
+	"CPIGComponente.h"
+	"CPIGBotao.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcampotextoesenha.h
+	"CPIGCaixaTexto.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcaixatexto.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigareadetexto.h
+	"CPIGCaixaTexto.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigradiobox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiglistaitemcomponente.h
+	"CPIGItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigitemcomponente.h
+	"CPIGSprite.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigcheckbox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiglistbox.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigdropdown.h
+	"CPIGListaItemComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggauge.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpiggaugecircular.h
+	"CPIGComponente.h"
+
+1614810101 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\include\cpigjogo.h
+	"CPIGAtributos.h"
+
+1618783625 c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\src\cjson.h
+	<stddef.h>
+
+1618783625 source:c:\users\joao-\desktop\tóp. esp. prog\pigdev-master\src\cjson.c
+	<string.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<limits.h>
+	<ctype.h>
+	<float.h>
+	<locale.h>
+	"cJSON.h"
+
