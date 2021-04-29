@@ -18,7 +18,7 @@
             "gravidadeCrime" : 2,
             "iniciaPresente" : 1,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             "xInicial" : 300,
@@ -59,7 +59,7 @@
             "gravidadeCrime" : -2,
             "iniciaPresente" : 0,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             "xInicial" : 300,
@@ -88,7 +88,9 @@
                 "[Portanto, tome cuidado.]",
                 "- Muito bem, novato!",
                 "- Nós perdoaremos seu comportamento dessa vez, visto que você está apenas começando.",
-                "- Mas fique ciente de que não haverá uma terceira chance."
+                "- Mas fique ciente de que não haverá uma terceira chance.",
+                "- Agora vamos ao trabalho. Fale comigo para avançarmos para o serviço.",
+                "- Lembre-se que, ao terminar as atividades na fase, me procure nos arredores pra continuarmos."
             ],
             "mensagensInteracao" : [
                 "- Droga! Acabei de voltar de uma entrevista de emprego e fui reprovado.",
@@ -101,7 +103,7 @@
             "gravidadeCrime" : 0,
             "iniciaPresente" : 1,
             "atacavel" : 0,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
@@ -147,5 +149,11 @@
         "- Esse boneco de treino está fazendo coisas ruins, então você precisa impedi-lo. Vai!",
         "- Apesar de nem sempre funcionar, uma abordagem mais amena pode evitar que algum engano seja cometido.",
         "[Aperte Z para interagir com o boneco. Aperte X para atacar o boneco.]"
+    ],
+    "mensagensPromovido" : [
+
+    ], 
+    "mensagensNeutro" : [
+        
     ]
 }

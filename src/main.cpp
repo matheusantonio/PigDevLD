@@ -39,6 +39,7 @@ typedef struct{
     int x,y; // Posição no mapa
     int estado; // Estado atual
     int reputacao; // Quantidade de reputacao que ele possui. Se cair a 0 ou abaixo, o policial é exonerado e o jogo acaba.
+    int reputacaoInicial;
     int direcao; // Direção para a qual ele está olhando (direita ou esquerda)
 }Policial;
 
@@ -152,6 +153,12 @@ typedef struct {
     int n_mensagens_iniciais;
     char** mensagens_iniciais;
 
+    int n_mensagens_promovido;
+    char** mensagens_promovido;
+
+    int n_mensagens_neutro;
+    char** mensagens_neutro;
+
 } Fase;
 
 // Protótipo da função que testa a colisão com os inimigos.
@@ -187,7 +194,9 @@ void iniciaReputacao(Policial &pol){
 
     srand(time(NULL));
     // Valor ainda a ser ajustado
-    pol.reputacao = rand() % 51 + 50;
+    int rep = rand() % 51 + 50;
+    pol.reputacao = rep;
+    pol.reputacaoInicial = rep;
 
     printf("Inicial: %d\n", pol.reputacao);
 
@@ -298,9 +307,9 @@ void Ataca(Policial &pol, Inimigo inimigos[], Mensagem **mensagemAtual, int numI
     if(!inimigos[inimigoAtingido].atacavel) return;
     if(inimigoAtingido != -1){
         SetColoracaoAnimacao(inimigos[inimigoAtingido].anima, VERMELHO);
-        //modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
         inimigos[inimigoAtingido].hp --;
         if(inimigos[inimigoAtingido].hp == 0){
+            modificaReputacao(pol,inimigos[inimigoAtingido].gravidade_crime);
             inimigos[inimigoAtingido].nocauteado = 1;
             inimigos[inimigoAtingido].presente = 0;
             adicionarMensagens(mensagemAtual, inimigos[inimigoAtingido].mensagem_atacado, inimigos[inimigoAtingido].n_mensagem_atacado);
@@ -388,6 +397,8 @@ void AtualizaPolicial(Policial &pol, Cenario cenario){
     pol.x = px;
     pol.y = py;
     MoveAnimacao(pol.anima,px,py);
+
+    printf("Rep: %d | x: %d | y: %d\n", pol.reputacao, pol.x, pol.y);
 }
 
 /* Função que trata a direção para qual o policial está virado. */
@@ -479,6 +490,7 @@ Inimigo criaInimigoJSON(cJSON* jsonInimigo, int pos){
 
 
     inimigo.anima = CriaAnimacao(cJSON_GetObjectItemCaseSensitive(jsonInimigo, "nomeArq")->valuestring, false);
+    InsereTransicaoAnimacao(inimigo.anima, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
     SetDimensoesAnimacao(inimigo.anima,
         (cJSON_GetObjectItemCaseSensitive(jsonInimigo, "modAltura")->valuedouble)*ALTPOLICIAL,
@@ -616,6 +628,32 @@ Fase carregarFaseJSON(char* arquivoJson, Policial &pol){
         strcpy(fase.mensagens_iniciais[i], cJSON_GetArrayItem(jsonMensagens, i)->valuestring);
     }
 
+
+    // Mensagens promovido
+    cJSON *jsonMensagensPromovido = cJSON_GetObjectItemCaseSensitive(tutorial_json, "mensagensPromovido");
+
+    fase.n_mensagens_promovido = cJSON_GetArraySize(jsonMensagensPromovido);
+    fase.mensagens_promovido = NULL;
+    fase.mensagens_promovido = (char**)malloc(fase.n_mensagens_promovido*sizeof(char*));
+
+    for(int i=0;i<fase.n_mensagens_promovido;i++){
+        fase.mensagens_promovido[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        strcpy(fase.mensagens_promovido[i], cJSON_GetArrayItem(jsonMensagensPromovido, i)->valuestring);
+    }
+
+
+    // Mensagens neutro
+    cJSON *jsonMensagensNeutro = cJSON_GetObjectItemCaseSensitive(tutorial_json, "mensagensNeutro");
+
+    fase.n_mensagens_neutro = cJSON_GetArraySize(jsonMensagensNeutro);
+    fase.mensagens_neutro = NULL;
+    fase.mensagens_neutro = (char**)malloc(fase.n_mensagens_neutro*sizeof(char*));
+
+    for(int i=0;i<fase.n_mensagens_neutro;i++){
+        fase.mensagens_neutro[i] = (char*)malloc(MAX_TEXT_SIZE*sizeof(char));
+        strcpy(fase.mensagens_neutro[i], cJSON_GetArrayItem(jsonMensagensNeutro, i)->valuestring);
+    }
+
     return fase;
 }
 
@@ -740,18 +778,29 @@ void trataEventosRua(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &po
         }
     }
 
+    for(int i=0;i<fase.n_inimigos;i++){
+        TrataAutomacaoAnimacao(fase.inimigos[i].anima);
+    }
 
     if(inimigoPolicial->interagido && *mensagem == NULL){
 
-        Fase novaFase = carregaBecoJSON(pol);
-        novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
-        InsereTransicaoSprite(novaFase.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+        if(pol.reputacao == pol.reputacaoInicial){
 
-        novaFase.cenario.sobreposto = CriaCena(novaFase.cenario.sobreposicao, novaFase.cenario.altura, novaFase.cenario.largura);
+            adicionarMensagens(mensagem, fase.mensagens_neutro, fase.n_mensagens_neutro);
+            inimigoPolicial->interagido = 0;
 
-        fase = novaFase;
+        } else {
+
+            Fase novaFase = carregaBecoJSON(pol);
+            novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
+            InsereTransicaoSprite(novaFase.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+
+            novaFase.cenario.sobreposto = CriaCena(novaFase.cenario.sobreposicao, novaFase.cenario.altura, novaFase.cenario.largura);
+            InsereTransicaoSprite(novaFase.cenario.sobreposto, 3, 0, 0, 0, 0, 0, BRANCO, -255);
+
+            fase = novaFase;
+        }
     }
-
 }
 
 void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
@@ -771,9 +820,29 @@ void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &p
         if(flagPolicial) break;
     }
 
+    for(int i=0;i<fase.n_inimigos;i++){
+        if(TempoDecorrido(fase.inimigos[i].timerAtacado) > 0.4) {
+            SetColoracaoAnimacao(fase.inimigos[i].anima, BRANCO);
+        }
+    }
+
+    for(int i=0;i<fase.n_inimigos;i++){
+        TrataAutomacaoAnimacao(fase.inimigos[i].anima);
+    }
+
+
     if(inimigoPolicial->interagido && *mensagem == NULL){
 
-        fimJogo = 1;
+        if(pol.reputacao == pol.reputacaoInicial){
+
+            adicionarMensagens(mensagem, fase.mensagens_neutro, fase.n_mensagens_neutro);
+            inimigoPolicial->interagido = 0;
+
+        } else {
+            fimJogo = 1;
+        }
+
+
     }
 
 }
@@ -818,11 +887,16 @@ void desenhaPersonagens(Inimigo inimigos[], Policial &pol, int &qtdInimigos){
 /*
 *  Função para finalizar o tutorial
 */
-int fimTutorial(int fimJogo, Mensagem *mensagemAtual, Policial &pol,int cena, int fadeTimer, char mensagemFinal[]){
+int jogoFinalizou(int fimJogo, Mensagem *mensagemAtual, Policial &pol,Fase faseAtual, int fadeTimer, char mensagemFinal[]){
+    int i;
 
      if(fimJogo && (mensagemAtual == NULL)) {
-            IniciaAutomacaoSprite(cena);
+            IniciaAutomacaoSprite(faseAtual.cenario.cena);
+            IniciaAutomacaoSprite(faseAtual.cenario.sobreposto);
             IniciaAutomacaoAnimacao(pol.anima);
+            for(i=0;i<faseAtual.n_inimigos;i++) {
+                IniciaAutomacaoAnimacao(faseAtual.inimigos[i].anima);
+            }
             DespausaTimer(fadeTimer);
             if (TempoDecorrido(fadeTimer) > 3)
                 strcpy(mensagemFinal, "Fim do Jogo!");
@@ -854,15 +928,17 @@ int main( int argc, char* args[] ){
 
     int fadeTimer = CriaTimer(1);
 
+    CarregaBackground("..//audio//cidade_alerta.mp3");
+
     // Inicializa os elementos principais do jogo, jogador, cenário, inimigos...
     Policial pol = criaPolicial();
     InsereTransicaoAnimacao(pol.anima, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
     char caminhoFonte[100] = "..//fontes//LEMONMILK-Regular.otf";
 
-    int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO);
+    int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO, PIG_ESTILO_NEGRITO);
 
-    Fase faseAtual = carregarTutorialJSON(pol);//carregaRuaJSON(pol);//carregaBecoJSON(pol);//
+    Fase faseAtual = carregarTutorialJSON(pol);//carregaBecoJSON(pol);//carregaRuaJSON(pol);//
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 
@@ -875,8 +951,12 @@ int main( int argc, char* args[] ){
     InsereTransicaoSprite(faseAtual.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
     faseAtual.cenario.sobreposto = CriaCena(faseAtual.cenario.sobreposicao, faseAtual.cenario.altura, faseAtual.cenario.largura);
+    InsereTransicaoSprite(faseAtual.cenario.sobreposto, 3, 0, 0, 0, 0, 0, BRANCO, -255);
 
     char mensagemFinal[50] = "";
+
+
+    PlayBackground();
 
     //loop principal do jogo
     while(JogoRodando()){
@@ -894,6 +974,7 @@ int main( int argc, char* args[] ){
         AjustaCamera(pol);
 
         TrataAutomacaoSprite(faseAtual.cenario.cena);
+        TrataAutomacaoSprite(faseAtual.cenario.sobreposto);
         TrataAutomacaoAnimacao(pol.anima);
 
         IniciaDesenho();
@@ -914,7 +995,7 @@ int main( int argc, char* args[] ){
 
         EncerraDesenho();
 
-        if(fimTutorial(fimJogo,mensagemAtual,pol,faseAtual.cenario.cena, fadeTimer, mensagemFinal)) break;
+        if(jogoFinalizou(fimJogo,mensagemAtual,pol,faseAtual, fadeTimer, mensagemFinal)) break;
     }
 
     //o jogo será encerrado

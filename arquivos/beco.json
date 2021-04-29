@@ -18,7 +18,7 @@
             "gravidadeCrime" : 0,
             "iniciaPresente" : 1,
             "atacavel" : 0,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
@@ -44,11 +44,297 @@
             ],
             "mensagensAtacado" : [],
             "mensagensInteracao" : [
-                "Sou o policial instrutor do beco"
+                "Olá, novato!"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//modern-punks.png",
+            "id" : 1,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 145,
+            "yInicial" : 250,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 50,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//modern-punks.png",
+            "id" : 2,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 454,
+            "yInicial" : 250,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 56,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Rinha de galo"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//modern-punks.png",
+            "id" : 3,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 155,
+            "yInicial" : 12,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 2,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Drogas"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//modern-punks.png",
+            "id" : 4,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 500,
+            "yInicial" : 100,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 8,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Rinha de Galo 1"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//modern-punks.png",
+            "id" : 5,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 350,
+            "yInicial" : 100,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 11,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Rinha de Galo 2"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//antonio.png",
+            "id" : 6,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 750,
+            "yInicial" : 250,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 56,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "HA HA HA HA"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//galinha.png",
+            "id" : 7,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 0,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 450,
+            "yInicial" : 100,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 20,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Pó pó pó"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//galinha.png",
+            "id" : 8,
+            "gravidadeCrime" : 0,
+            "iniciaPresente" : 1,
+            "atacavel" : 0,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 400,
+            "yInicial" : 100,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 29,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [],
+            "mensagensInteracao" : [
+                "Pó pó pó"
             ]
         }
+
     ],
     "mensagensIniciais" : [
         
+    ],
+    "mensagensPromovido" : [
+        "Você fez um bom trabalho nessa região!"
+    ], 
+    "mensagensNeutro" : [
+        "Vai trabalhar e volta depois!"
     ]
 }

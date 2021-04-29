@@ -18,13 +18,13 @@
             "gravidadeCrime" : 0,
             "iniciaPresente" : 1,
             "atacavel" : 0,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             
             
-            "xInicial" : 500,
+            "xInicial" : 3226,
             "yInicial" : 120,
             
             
@@ -44,23 +44,23 @@
             ],
             "mensagensAtacado" : [],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Olá, novato!"
             ]
         },
         {
             "nomeArq" : "..//imagens//inimigos.png",
             "id" : 1,
-            "gravidadeCrime" : 2,
+            "gravidadeCrime" : 3,
             "iniciaPresente" : 1,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             
             
-            "xInicial" : 550,
-            "yInicial" : 120,
+            "xInicial" : 265,
+            "yInicial" : 340,
             
             
             "linhasFrame" : 8,
@@ -77,25 +77,29 @@
                     ]
                 }
             ],
-            "mensagensAtacado" : [],
+            "mensagensAtacado" : [
+                "Me sinto meio mal por ele, mas tráfico é crime...",
+                "Pegamos ele em flagrante, aspira! Continue assim!"
+            ],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Estou esperando alguém pra vender meu pó",
+                "Preciso colocar comida no prato da minha família"
             ]
         },
         {
             "nomeArq" : "..//imagens//inimigos.png",
             "id" : 2,
-            "gravidadeCrime" : -2,
+            "gravidadeCrime" : -4,
             "iniciaPresente" : 1,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             
             
-            "xInicial" : 650,
-            "yInicial" : 120,
+            "xInicial" : 1795,
+            "yInicial" : 100,
             
             
             "linhasFrame" : 8,
@@ -112,25 +116,29 @@
                     ]
                 }
             ],
-            "mensagensAtacado" : [],
+            "mensagensAtacado" : [
+                "Chegou a tempo, aspira! O cara estava arrombando o carro!",
+                "Ou será que o carro era dele mesmo?",
+                "Que seja, vamos continuar."
+            ],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Que que tu tá olhando? Tô tentando abrir esse carro aqui"
             ]
         },
         {
             "nomeArq" : "..//imagens//inimigos.png",
             "id" : 3,
-            "gravidadeCrime" : 4,
+            "gravidadeCrime" : 2,
             "iniciaPresente" : 1,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             
             
-            "xInicial" : 550,
-            "yInicial" : 200,
+            "xInicial" : 2980,
+            "yInicial" : 340,
             
             
             "linhasFrame" : 8,
@@ -147,25 +155,30 @@
                     ]
                 }
             ],
-            "mensagensAtacado" : [],
+            "mensagensAtacado" : [
+                "Bom trabalho, aspira! É nosso dever impedir qualquer tipo de roubo!",
+                "Disciplinar esses pivetes é cansativo para nós, então vamos deixar isso em suas mãos."
+            ],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Estou morrendo de fome!",
+                "To tentando dar um jeitinho de abrir aqui pra pegar alguma coisa.",
+                "Tá afim de ajudar? A gente rouba uns lanches e tal."
             ]
         },
         {
             "nomeArq" : "..//imagens//inimigos.png",
             "id" : 4,
-            "gravidadeCrime" : -4,
+            "gravidadeCrime" : -3,
             "iniciaPresente" : 1,
             "atacavel" : 1,
-            "hp" : 3,
+            "hp" : 2,
             
             "modAltura" : 1.05,
             "modLargura" : 1.05,
             
             
-            "xInicial" : 650,
-            "yInicial" : 200,
+            "xInicial" : 1040,
+            "yInicial" : 100,
             
             
             "linhasFrame" : 8,
@@ -182,14 +195,175 @@
                     ]
                 }
             ],
-            "mensagensAtacado" : [],
+            "mensagensAtacado" : [
+                "Será que foi correto isso?",
+                "Entendo que levar 2 e pagar 3 é sacanagem, mas acho que você exagerou."
+            ],
             "mensagensInteracao" : [
-                "Sou o policial instrutor"
+                "Booooooora, olha o sorveteeeee!!!",
+                "Quem vai? Quem vai? Quem vai?",
+                "Promoção, LEVE 2 PAGUE 3!"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//inimigos.png",
+            "id" : 5,
+            "gravidadeCrime" : 1,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 470,
+            "yInicial" : 340,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 50,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [
+                "[Esses moleques ficam sacaneando a gente...]",
+                "[Você ensinou uma lição pra ele!]"
+            ],
+            "mensagensInteracao" : [
+                "Alô, é da polícia? Eu tenho uma pergunta...",
+                "Você tem um cachorro e o nome dele é Nabunda",
+                "Nabunda caiu no rio, você leva Nabunda ou deixa Nabunda?"
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//inimigos.png",
+            "id" : 6,
+            "gravidadeCrime" : -5,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 2287, 
+            "yInicial" : 100,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 53,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [
+                "ponto de onibus"
+            ],
+            "mensagensInteracao" : [
+                ""
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//inimigos.png",
+            "id" : 7,
+            "gravidadeCrime" : -3,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 1740,
+            "yInicial" : 340,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 56,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [
+                "Barbeiro"
+            ],
+            "mensagensInteracao" : [
+            ]
+        },
+        {
+            "nomeArq" : "..//imagens//inimigos.png",
+            "id" : 8,
+            "gravidadeCrime" : 3,
+            "iniciaPresente" : 1,
+            "atacavel" : 1,
+            "hp" : 2,
+            
+            "modAltura" : 1.05,
+            "modLargura" : 1.05,
+            
+            
+            "xInicial" : 1614,
+            "yInicial" : 340,
+            
+            
+            "linhasFrame" : 8,
+            "colunasFrame" : 12,
+            "modosAnimacao" : [
+                {
+                    "codigoModo" : 1,
+                    "loop" : 0,
+                    "frames" : [
+                        {
+                            "codigoFrame" : 59,
+                            "tempo" : 0.1
+                        }
+                    ]
+                }
+            ],
+            "mensagensAtacado" : [
+                "Caixa eletrônico"
+            ],
+            "mensagensInteracao" : [
             ]
         }
         
     ],
     "mensagensIniciais" : [
         
+    ],
+    "mensagensPromovido" : [
+        "Você fez um bom trabalho nessa região!",
+        "Agora vamos para a próxima..."
+    ], 
+    "mensagensNeutro" : [
+        "Vai trabalhar e volta depois!"
     ]
 }
