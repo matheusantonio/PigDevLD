@@ -222,7 +222,7 @@
             ]
         },
         {
-            "nomeArq" : "..//imagens//antonio.png",
+            "nomeArq" : "..//imagens//antonio2.png",
             "id" : 6,
             "gravidadeCrime" : 0,
             "iniciaPresente" : 1,
@@ -245,7 +245,7 @@
                     "loop" : 0,
                     "frames" : [
                         {
-                            "codigoFrame" : 56,
+                            "codigoFrame" : 50,
                             "tempo" : 0.1
                         }
                     ]

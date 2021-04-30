@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1619133221 source:/home/matheus/Documentos/PigDev/src/main.cpp
+1619741908 source:/home/matheus/Documentos/PigDev/src/main.cpp
 	"PIG.h"
 	<stdio.h>
 	<string.h>
@@ -466,7 +466,7 @@
 	"CPIGMapaCaracteres.h"
 	"CPIGMapaCaracteresDinamicos.h"
 
-1612187188 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteres.h
+1619284903 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteres.h
 
 1611759206 /home/matheus/Documentos/PigDev/include/CPIGMapaCaracteresDinamicos.h
 	"CPIGStringFormatada.h"

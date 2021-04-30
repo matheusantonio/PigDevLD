@@ -791,6 +791,8 @@ void trataEventosRua(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &po
 
         } else {
 
+
+
             Fase novaFase = carregaBecoJSON(pol);
             novaFase.cenario.cena = CriaCena(novaFase.cenario.nomeArq, novaFase.cenario.altura, novaFase.cenario.largura);
             InsereTransicaoSprite(novaFase.cenario.cena, 3, 0, 0, 0, 0, 0, BRANCO, -255);
@@ -803,13 +805,27 @@ void trataEventosRua(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &po
     }
 }
 
+
+
 void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &pol){
 
+    int somRisada = CriaAudio("..//audio//risada.wav", 0);
+    SetVolume(somRisada, 15);
+
+    int somMacaco = CriaAudio("..//audio//macaco.wav", 0);
+    SetVolume(somMacaco, 20);
+
     const int ID_POLICIAL = 0;
+    const int ID_ANTONIO = 6;
+    const int ID_MACACO = 2;
 
     Inimigo* inimigoPolicial;
+    Inimigo* inimigoAntonio;
+    Inimigo* inimigoMacaco;
 
     int flagPolicial = 0;
+    int flagAntonio = 0;
+    int flagMacaco = 0;
 
     for(int i=0;i<fase.n_inimigos;i++){
         if(fase.inimigos[i].id_inimigo == ID_POLICIAL){
@@ -817,7 +833,17 @@ void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &p
             flagPolicial = 1;
             continue;
         }
-        if(flagPolicial) break;
+        if(fase.inimigos[i].id_inimigo == ID_ANTONIO){
+            inimigoAntonio = &(fase.inimigos[i]);
+            flagAntonio = 1;
+            continue;
+        }
+        if(fase.inimigos[i].id_inimigo == ID_MACACO){
+            inimigoMacaco = &(fase.inimigos[i]);
+            flagMacaco = 1;
+            continue;
+        }
+        if(flagPolicial && flagAntonio && flagMacaco) break;
     }
 
     for(int i=0;i<fase.n_inimigos;i++){
@@ -830,6 +856,15 @@ void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &p
         TrataAutomacaoAnimacao(fase.inimigos[i].anima);
     }
 
+    if(inimigoAntonio->interagido){
+        PlayAudio(somRisada);
+        inimigoAntonio->interagido = 0;
+    }
+
+    if(inimigoMacaco->interagido){
+        PlayAudio(somMacaco);
+        inimigoMacaco->interagido = 0;
+    }
 
     if(inimigoPolicial->interagido && *mensagem == NULL){
 
@@ -841,10 +876,7 @@ void trataEventosBeco(Fase &fase, Mensagem **mensagem, int &fimJogo, Policial &p
         } else {
             fimJogo = 1;
         }
-
-
     }
-
 }
 
 
@@ -888,9 +920,19 @@ void desenhaPersonagens(Inimigo inimigos[], Policial &pol, int &qtdInimigos){
 *  Função para finalizar o tutorial
 */
 int jogoFinalizou(int fimJogo, Mensagem *mensagemAtual, Policial &pol,Fase faseAtual, int fadeTimer, char mensagemFinal[]){
+
     int i;
 
-     if(fimJogo && (mensagemAtual == NULL)) {
+    if(fimJogo && (mensagemAtual == NULL)) {
+
+            //StopBackground();
+            //CarregaBackground("..//audio//proerd.wav");
+            //SetVolumeBackground(10);
+            //PlayBackground();
+            int audioProerd = CriaAudio("..//audio//proerd.wav", 0);
+            SetVolume(audioProerd, 1);
+            PlayAudio(audioProerd);
+
             IniciaAutomacaoSprite(faseAtual.cenario.cena);
             IniciaAutomacaoSprite(faseAtual.cenario.sobreposto);
             IniciaAutomacaoAnimacao(pol.anima);
@@ -929,6 +971,7 @@ int main( int argc, char* args[] ){
     int fadeTimer = CriaTimer(1);
 
     CarregaBackground("..//audio//cidade_alerta.mp3");
+    SetVolumeBackground(7);
 
     // Inicializa os elementos principais do jogo, jogador, cenário, inimigos...
     Policial pol = criaPolicial();
@@ -938,7 +981,7 @@ int main( int argc, char* args[] ){
 
     int fonte = CriaFonteNormal(caminhoFonte, 10, AMARELO, PIG_ESTILO_NEGRITO);
 
-    Fase faseAtual = carregarTutorialJSON(pol);//carregaBecoJSON(pol);//carregaRuaJSON(pol);//
+    Fase faseAtual = carregaBecoJSON(pol);//carregarTutorialJSON(pol);//carregaRuaJSON(pol);//
 
     Mensagem* mensagemAtual = NULL; // Inicializa o jogo sem mensagens
 
